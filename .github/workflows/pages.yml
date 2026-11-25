@@ -8,22 +8,17 @@ on:
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
 concurrency:
   group: github-pages
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Publicar en GitHub Pages
+  package:
+    name: Empaquetar el portafolio
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      contents: read
+      pages: read
     steps:
       - name: Descargar el contenido del repositorio
         uses: actions/checkout@v6
@@ -35,6 +30,19 @@ jobs:
         uses: actions/upload-pages-artifact@v4
         with:
           path: dist
+
+  deploy:
+    name: Publicar en GitHub Pages
+    needs: package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
       - name: Publicar
         id: deployment
         uses: actions/deploy-pages@v4
