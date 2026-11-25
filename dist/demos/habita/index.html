@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Habita es una inmobiliaria de muestra para explorar casas, departamentos y lofts en Ciudad de México.">
+  <meta name="theme-color" content="#f5f3ec">
+  <title>Habita | Propiedades en Ciudad de México</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header shell">
+    <a class="brand" href="./index.html" aria-label="Habita, inicio"><span class="brand-mark" aria-hidden="true"></span>habita</a>
+    <nav aria-label="Navegación principal">
+      <a class="header-link portfolio-link" href="../../index.html">Portafolio</a>
+      <a class="header-link" href="#propiedades">Propiedades</a>
+      <button class="favorites-link" type="button" id="open-favorites" aria-label="Ver propiedades guardadas" aria-haspopup="dialog">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.9 8.2c0 3.9-5.8 7.9-8.9 10.6-3.1-2.7-8.9-6.7-8.9-10.6 0-2.5 1.9-4.3 4.3-4.3 2 0 3.6 1.3 4.6 2.7 1-1.4 2.6-2.7 4.6-2.7 2.4 0 4.3 1.8 4.3 4.3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        <span>Guardadas</span><span id="favorite-count" aria-hidden="true">0</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="location"><span class="location-marker" aria-hidden="true"></span> Ciudad de México</p>
+        <h1 id="hero-title">Encuentra tu lugar.</h1>
+        <p>Casas, departamentos y lofts para comprar o rentar en la ciudad. Empieza por lo que necesitas y descubre lo que encaja.</p>
+      </div>
+      <figure class="hero-image">
+        <img src="../../assets/habita.webp" alt="Fachada residencial de piedra y madera con un jardín al frente" fetchpriority="high" width="1536" height="1024">
+      </figure>
+    </section>
+
+    <form class="search shell" id="search-form" aria-label="Filtros de propiedades">
+      <div class="search-fields">
+        <fieldset class="operation">
+          <legend>Quiero</legend>
+          <div class="segmented">
+            <label><input type="radio" name="operation" value="sale" checked><span>Comprar</span></label>
+            <label><input type="radio" name="operation" value="rent"><span>Rentar</span></label>
+          </div>
+        </fieldset>
+        <div class="search-field">
+          <label for="property-type">Tipo de propiedad</label>
+          <select id="property-type" name="type">
+            <option value="">Todos</option>
+            <option value="Casa">Casa</option>
+            <option value="Departamento">Departamento</option>
+            <option value="Loft">Loft</option>
+          </select>
+        </div>
+        <div class="search-field">
+          <label for="budget">Presupuesto máximo</label>
+          <select id="budget" name="budget">
+            <option value="">Sin límite</option>
+          </select>
+        </div>
+        <button class="primary-button search-button" type="submit">Ver propiedades</button>
+      </div>
+    </form>
+
+    <section class="listings shell" id="propiedades" tabindex="-1" aria-labelledby="listings-title">
+      <div class="listings-header">
+        <h2 id="listings-title">Propiedades en venta</h2>
+        <p id="result-count" role="status"></p>
+      </div>
+      <div class="property-grid" id="property-grid"></div>
+      <div class="empty-state" id="empty-state" hidden>
+        <h3>Sin coincidencias</h3>
+        <p>Prueba con otro tipo de propiedad o amplía tu presupuesto.</p>
+        <button class="secondary-button" id="clear-filters" type="button">Limpiar filtros</button>
+      </div>
+      <noscript><p>Activa JavaScript para buscar y guardar propiedades de esta demo.</p></noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="shell footer-inner">
+      <a class="brand" href="./index.html" aria-label="Habita, inicio"><span class="brand-mark" aria-hidden="true"></span>habita</a>
+      <p>Demo inmobiliaria con propiedades y precios ficticios.</p>
+      <a class="footer-link" href="../../index.html">Volver al portafolio</a>
+    </div>
+  </footer>
+
+  <dialog class="property-dialog" id="property-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-header">
+      <p id="dialog-kicker"></p>
+      <form method="dialog">
+        <button class="icon-button close-dialog" type="submit" aria-label="Cerrar propiedad" autofocus>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+    </div>
+    <img id="dialog-image" class="dialog-image" alt="">
+    <div class="dialog-content">
+      <p class="property-location" id="dialog-location"></p>
+      <h2 id="dialog-title"></h2>
+      <p class="dialog-price" id="dialog-price"></p>
+      <ul class="property-facts" id="dialog-facts" aria-label="Características"></ul>
+      <p id="dialog-description"></p>
+      <button class="secondary-button" id="dialog-favorite" type="button" aria-pressed="false">Guardar propiedad</button>
+    </div>
+  </dialog>
+
+  <dialog class="favorites-dialog" id="favorites-dialog" aria-labelledby="favorites-title">
+    <div class="dialog-header">
+      <h2 id="favorites-title">Propiedades guardadas</h2>
+      <form method="dialog">
+        <button class="icon-button close-dialog" type="submit" aria-label="Cerrar guardadas" autofocus>
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+    </div>
+    <p id="favorites-empty">Guarda las propiedades que te interesen para volver a verlas aquí.</p>
+    <ul id="favorites-list"></ul>
+  </dialog>
+
+  <template id="property-card-template">
+    <article class="property-card">
+      <div class="card-image">
+        <img alt="" loading="lazy" width="400" height="280">
+        <span class="property-type"></span>
+        <button class="icon-button favorite-button" type="button" aria-pressed="false">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20.9 8.2c0 3.9-5.8 7.9-8.9 10.6-3.1-2.7-8.9-6.7-8.9-10.6 0-2.5 1.9-4.3 4.3-4.3 2 0 3.6 1.3 4.6 2.7 1-1.4 2.6-2.7 4.6-2.7 2.4 0 4.3 1.8 4.3 4.3Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+      <div class="card-copy">
+        <p class="property-location"></p>
+        <h3></h3>
+        <p class="property-price"></p>
+        <ul class="property-facts" aria-label="Características"></ul>
+        <button class="card-link" type="button" aria-haspopup="dialog">Ver ficha</button>
+      </div>
+    </article>
+  </template>
+</body>
+</html>

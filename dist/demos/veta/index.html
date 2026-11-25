@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Configura un escritorio de Veta. Cambia sus medidas, acabado y accesorios en una vista 3D.">
+  <title>Veta | Escritorios a medida</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="model.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <div class="demo-bar"><div class="wrap"><a href="../../index.html">Volver al portafolio</a><span>Demo · Mobiliario a medida</span></div></div>
+  <header class="wrap masthead">
+    <a class="brand" href="#contenido" aria-label="Veta, inicio">veta<span>.</span></a>
+    <nav aria-label="Navegación de Veta"><a href="#configurar">Configurar</a><a href="#materiales">Materiales</a></nav>
+  </header>
+  <main class="wrap" id="contenido">
+    <div class="intro">
+      <div class="intro-copy"><p class="category">Mobiliario de trabajo</p><h1>Escritorio Uno</h1></div>
+      <p>Elige el tamaño, la veta y los accesorios para tu espacio.</p>
+    </div>
+
+    <section class="configurator" id="configurar" aria-label="Configurador del escritorio">
+      <section class="viewer" aria-labelledby="viewer-title">
+        <div class="viewer-top"><h2 id="viewer-title">Vista 3D</h2><span id="model-size">140 × 70 × 74 cm</span></div>
+        <div id="stage" tabindex="0" role="region" aria-label="Modelo 3D del Escritorio Uno" aria-describedby="rotate-help">
+          <canvas id="shadow" aria-hidden="true"></canvas>
+          <canvas id="render-surface" aria-hidden="true"></canvas>
+          <noscript><p class="stage-message">Activa JavaScript para configurar el escritorio y girar el modelo.</p></noscript>
+        </div>
+        <div class="viewer-controls">
+          <div class="view-tabs" role="group" aria-label="Cambiar vista del modelo">
+            <button type="button" data-angle="orbit" aria-pressed="true">Perspectiva</button>
+            <button type="button" data-angle="front" aria-pressed="false">Frente</button>
+            <button type="button" data-angle="top" aria-pressed="false">Superior</button>
+          </div>
+          <p id="rotate-help">Arrastra o usa las flechas para girar.</p>
+        </div>
+      </section>
+
+      <form id="configuration" class="options" autocomplete="off">
+        <fieldset class="measurements">
+          <legend>Medidas <span>Altura fija de 74 cm</span></legend>
+          <div class="dimension" role="group" aria-labelledby="width-label">
+            <span id="width-label">Ancho</span>
+            <label><input type="radio" name="width" value="120"><span>120 cm</span></label>
+            <label><input type="radio" name="width" value="140" checked><span>140 cm</span></label>
+            <label><input type="radio" name="width" value="160"><span>160 cm</span></label>
+          </div>
+          <div class="dimension" role="group" aria-labelledby="depth-label">
+            <span id="depth-label">Fondo</span>
+            <label><input type="radio" name="depth" value="60"><span>60 cm</span></label>
+            <label><input type="radio" name="depth" value="70" checked><span>70 cm</span></label>
+            <label><input type="radio" name="depth" value="80"><span>80 cm</span></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="finishes">
+          <legend>Acabado</legend>
+          <div class="swatches">
+            <label><input type="radio" name="finish" value="roble" checked><span class="swatch oak" aria-hidden="true"></span><span>Roble claro</span></label>
+            <label><input type="radio" name="finish" value="nogal"><span class="swatch walnut" aria-hidden="true"></span><span>Nogal</span><small>+$1,490</small></label>
+            <label><input type="radio" name="finish" value="carbon"><span class="swatch carbon" aria-hidden="true"></span><span>Carbón</span><small>+$890</small></label>
+          </div>
+        </fieldset>
+
+        <fieldset class="accessories">
+          <legend>Accesorios <span>Opcionales</span></legend>
+          <label><input type="checkbox" name="accessory" value="drawer"><span>Cajón oculto</span><small>+$930</small></label>
+          <label><input type="checkbox" name="accessory" value="cable"><span>Pasacables de latón</span><small>+$320</small></label>
+          <label><input type="checkbox" name="accessory" value="riser"><span>Repisa para monitor</span><small>+$1,150</small></label>
+        </fieldset>
+
+        <div class="quote">
+          <div class="price-heading"><div><span class="price-label">Total estimado</span><output id="total" aria-live="polite">$8,950 <small>MXN</small></output></div>
+            <button class="reset" type="button" id="reset-config">Restablecer</button>
+          </div>
+          <details class="breakdown"><summary>Ver desglose</summary><dl id="price-lines"></dl></details>
+          <button class="primary" type="button" id="prepare-quote">Preparar cotización</button>
+          <p id="configuration-status" role="status"></p>
+        </div>
+      </form>
+    </section>
+
+    <section class="materials" id="materiales" aria-labelledby="materials-title">
+      <figure><img src="../../assets/veta.webp" alt="Escritorio de madera en un estudio iluminado por luz natural" width="1536" height="1024" loading="lazy"></figure>
+      <div class="material-copy"><h2 id="materials-title">Diseñado para el uso diario.</h2>
+        <dl>
+          <div><dt>Cubierta</dt><dd>Madera con veta visible, cantos redondeados y acabado mate.</dd></div>
+          <div><dt>Estructura</dt><dd>Patas de acero con pintura negra y regatones para proteger el piso.</dd></div>
+          <div><dt>Cuidados</dt><dd>Limpia con un paño suave y usa un protector para objetos calientes.</dd></div>
+        </dl>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap foot"><span>veta.</span><p>Precios y cotizaciones de muestra.</p><a href="../../index.html">Volver al portafolio</a></footer>
+
+  <dialog id="quote-dialog" aria-labelledby="quote-title">
+    <div class="dialog-head"><h2 id="quote-title">Tu cotización</h2><form method="dialog"><button class="close" aria-label="Cerrar cotización" autofocus>×</button></form></div>
+    <p>Descarga la ficha con las medidas, el acabado y los accesorios que elegiste. Cotización de muestra.</p>
+    <dl id="quote-details"></dl>
+    <div class="dialog-total"><span>Total estimado</span><strong id="quote-total"></strong></div>
+    <button type="button" class="primary" id="download-quote">Descargar cotización</button>
+    <p id="download-status" role="status"></p>
+  </dialog>
+</body>
+</html>

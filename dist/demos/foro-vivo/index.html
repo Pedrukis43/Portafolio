@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Explora la cartelera de Foro Vivo y elige asientos en una compra de boletos simulada.">
+    <meta name="theme-color" content="#1b141c">
+    <title>Foro Vivo | Música en vivo</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <div class="utility">
+      <div class="frame utility-content">
+        <a href="../../index.html">Volver al portafolio</a>
+        <span>Demo interactiva de boletaje</span>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="frame header-content">
+        <a class="wordmark" href="#contenido" aria-label="Foro Vivo, inicio"><span>foro</span><span>vivo<span class="wordmark-dot">.</span></span></a>
+        <nav aria-label="Navegación principal">
+          <a href="#cartelera">Cartelera</a>
+          <a href="#boletos" class="button header-button">Boletos</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido">
+      <section class="hero frame" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="hero-location"><span aria-hidden="true"></span>Música en vivo en Ciudad de México</p>
+          <h1 id="hero-title">La música<br>se vive<br><em>en vivo.</em></h1>
+          <a class="button primary" href="#cartelera">Explorar cartelera</a>
+        </div>
+        <figure class="hero-art">
+          <img src="../../assets/foro.webp" width="1536" height="1024" alt="Ilustración coral de bocinas y ondas de sonido sobre fondo ciruela" fetchpriority="high">
+        </figure>
+      </section>
+
+      <section class="program" id="cartelera" aria-labelledby="program-title">
+        <div class="frame program-inner">
+          <header class="section-banner"><h2 id="program-title" tabindex="-1">Cartelera</h2><p>Tres conciertos de muestra para explorar.</p></header>
+          <div class="program-flow">
+            <div class="carousel" aria-label="Eventos de la cartelera">
+              <div class="posters" id="posters" role="group" aria-label="Elegir evento">
+                <button type="button" class="poster" data-event="noche" data-position="active" aria-pressed="true" aria-label="Frecuencia Nocturna">
+                  <img src="../../assets/foro-noche.webp" width="768" height="960" alt="" loading="lazy">
+                  <span class="poster-print"><span>Electrónica</span><strong>Frecuencia<br>Nocturna</strong></span>
+                </button>
+                <button type="button" class="poster" data-event="ritmo" data-position="next" aria-pressed="false" aria-label="Los Días Largos">
+                  <img src="../../assets/foro-ritmo.webp" width="768" height="960" alt="" loading="lazy">
+                  <span class="poster-print"><span>Indie rock</span><strong>Los Días<br>Largos</strong></span>
+                </button>
+                <button type="button" class="poster" data-event="patio" data-position="previous" aria-pressed="false" aria-label="Patio Sonoro">
+                  <img src="../../assets/foro-patio.webp" width="768" height="960" alt="" loading="lazy">
+                  <span class="poster-print"><span>Jazz</span><strong>Patio<br>Sonoro</strong></span>
+                </button>
+              </div>
+              <div class="carousel-controls">
+                <button type="button" id="previous-event" class="icon-button" aria-label="Evento anterior"><span aria-hidden="true">←</span></button>
+                <span id="event-count" aria-hidden="true">1 / 3</span>
+                <button type="button" id="next-event" class="icon-button" aria-label="Evento siguiente"><span aria-hidden="true">→</span></button>
+              </div>
+            </div>
+            <article class="show-detail" aria-labelledby="show-title">
+              <p id="show-date" class="show-date"></p>
+              <h3 id="show-title">Frecuencia Nocturna</h3>
+              <p id="show-description">Una noche de sintetizadores y beats en directo, con dos sets de electrónica local.</p>
+              <dl class="show-facts">
+                <div><dt>Género</dt><dd id="show-genre">Electrónica</dd></div>
+                <div><dt>Desde</dt><dd id="show-price">$390 MXN</dd></div>
+                <div><dt>Duración</dt><dd id="show-duration">90 min</dd></div>
+              </dl>
+              <a class="button primary" href="#boletos" id="show-ticket-link">Elegir función y asientos</a>
+            </article>
+          </div>
+          <p class="sr-only" id="show-announcement" role="status"></p>
+        </div>
+      </section>
+
+      <section class="booking" id="boletos" aria-labelledby="booking-title">
+        <div class="frame booking-inner">
+          <header class="section-banner booking-banner"><h2 id="booking-title">Tus boletos</h2><p>Hasta seis asientos por compra. Cargo de $35 MXN por boleto.</p></header>
+          <noscript><p>Activa JavaScript para elegir boletos en el plano interactivo.</p></noscript>
+          <div class="booking-grid" id="booking-grid" hidden>
+            <div class="booking-main">
+              <div class="booking-options">
+                <div class="select-wrap">
+                  <label for="event-select">Evento</label>
+                  <select id="event-select"></select>
+                </div>
+                <fieldset class="choice-set">
+                  <legend>Función</legend>
+                  <div class="choice-row" id="performances"></div>
+                </fieldset>
+              </div>
+
+              <div class="seat-plan">
+                <div class="plan-header">
+                  <div><h3>Plano de asientos</h3><p id="zone-rate"></p></div>
+                  <fieldset class="choice-set zone-set">
+                    <legend>Zona del recinto</legend>
+                    <div class="choice-row" id="zone-controls">
+                      <label><input type="radio" name="zone" value="platea" checked><span>Platea</span></label>
+                      <label><input type="radio" name="zone" value="balcon"><span>Balcón</span></label>
+                    </div>
+                  </fieldset>
+                </div>
+                <div class="stage"><span>Escenario</span></div>
+                <div class="seats" id="seat-grid" role="group" aria-label="Asientos" aria-describedby="seat-help"></div>
+                <p class="sr-only" id="seat-help">Usa las flechas para moverte entre asientos disponibles. Pulsa Enter o Espacio para seleccionar o quitar un asiento.</p>
+                <p class="selection-limit" id="selection-limit" hidden>Puedes elegir hasta 6 asientos por compra.</p>
+                <ul class="seat-legend" aria-label="Estados de los asientos">
+                  <li><span class="legend-mark" aria-hidden="true"></span>Disponible</li>
+                  <li><span class="legend-mark occupied" aria-hidden="true">×</span>Ocupado</li>
+                  <li><span class="legend-mark selected" aria-hidden="true">✓</span>Seleccionado</li>
+                </ul>
+              </div>
+            </div>
+
+            <aside class="ticket" aria-labelledby="ticket-title">
+              <div class="ticket-main">
+                <h3 id="ticket-title">Tu selección</h3>
+                <p id="summary-event" class="summary-event"></p>
+                <p id="summary-performance" class="summary-performance"></p>
+                <p id="summary-empty" class="summary-empty">Selecciona un asiento en el plano.</p>
+                <ul class="selected-seats" id="selected-seats" aria-label="Asientos seleccionados"></ul>
+              </div>
+              <div class="ticket-total">
+                <p class="total-line" id="fee-row" hidden><span>Cargo de servicio</span><span id="summary-fee"></span></p>
+                <p class="total-line total-amount"><span>Total</span><output id="summary-total">$0 MXN</output></p>
+                <button class="button primary" type="button" id="review-order" disabled>Revisar compra</button>
+                <p class="sample-note">Compra simulada en pesos mexicanos.</p>
+              </div>
+            </aside>
+          </div>
+          <p class="sr-only" id="booking-announcement" role="status"></p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer"><div class="frame footer-content"><span class="wordmark" aria-hidden="true"><span>foro</span><span>vivo<span class="wordmark-dot">.</span></span></span><p>Recinto y cartelera de muestra</p><a href="../../index.html">Volver al portafolio</a></div></footer>
+
+    <dialog class="order-dialog" id="order-dialog" aria-labelledby="dialog-title">
+      <div class="dialog-header"><h2 id="dialog-title" tabindex="-1">Revisa tus boletos</h2><form method="dialog"><button type="submit" class="icon-button" aria-label="Cerrar ventana">×</button></form></div>
+      <p id="dialog-event" class="dialog-event"></p>
+      <p id="dialog-performance"></p>
+      <ul id="dialog-seats" class="dialog-seats" aria-label="Asientos"></ul>
+      <p class="total-line"><span>Cargo de servicio</span><span id="dialog-fee"></span></p>
+      <p class="total-line total-amount"><span>Total</span><span id="dialog-total"></span></p>
+      <div id="order-review">
+        <p class="sample-note">Elige «Simular compra» para confirmar estos boletos de muestra.</p>
+        <div class="dialog-actions"><form method="dialog"><button class="button secondary" type="submit">Modificar selección</button></form><button class="button primary" type="button" id="confirm-order">Simular compra</button></div>
+      </div>
+      <div id="order-confirmation" hidden>
+        <p class="order-reference" id="order-reference"></p>
+        <form method="dialog"><button class="button primary" type="submit" value="cartelera">Volver a la cartelera</button></form>
+      </div>
+    </dialog>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tinta Norte es un estudio de tatuaje ficticio. Explora su archivo de piezas y prepara una solicitud de prueba.">
+    <meta name="theme-color" content="#161714">
+    <title>Tinta Norte | Estudio de tatuaje</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <div class="demo-bar"><div class="page-width"><a href="../../index.html">Volver al portafolio</a><span>Demo · Estudio de tatuaje</span></div></div>
+    <header class="masthead page-width">
+      <a class="wordmark" href="#contenido" aria-label="Tinta Norte, inicio"><span class="monogram" aria-hidden="true">TN</span><span>Tinta Norte</span></a>
+      <nav aria-label="Navegación del estudio"><a href="#archivo">Archivo</a><a href="#artistas">Artistas</a><a class="masthead-cta" href="#solicitud">Tu idea</a></nav>
+    </header>
+
+    <main id="contenido">
+      <section class="hero page-width" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="hero-label">Estudio de tatuaje</p>
+          <h1 id="hero-title"><span>Tinta con</span> <span>pulso.</span></h1>
+          <p>Tres artistas, tres maneras de dibujar sobre la piel. Explora sus piezas y arma la referencia para tu próximo tatuaje.</p>
+          <div class="hero-actions"><a class="button accent" href="#archivo">Explorar el archivo</a><a href="#solicitud" class="text-link">Preparar mi idea</a></div>
+        </div>
+        <div class="hero-image"><img src="../../assets/tinta.webp" alt="Detalle fotográfico de un tatuaje terminado en un estudio de luz tenue" width="1536" height="1024" fetchpriority="high"></div>
+      </section>
+
+      <section class="archive" id="archivo" aria-labelledby="arch-title">
+        <div class="page-width archive-inner">
+          <div class="section-heading"><h2 id="arch-title">Archivo de tinta</h2><p>Abre una foto para ver el trazo de cerca. Guarda las piezas que quieras tener a la mano.</p></div>
+          <div class="filter-bar">
+            <div class="filters" role="group" aria-label="Filtrar por estilo">
+              <button type="button" data-filter="todos" aria-pressed="true">Todas</button>
+              <button type="button" data-filter="linea" aria-pressed="false">Línea fina</button>
+              <button type="button" data-filter="blackwork" aria-pressed="false">Blackwork</button>
+              <button type="button" data-filter="ornamental" aria-pressed="false">Ornamental</button>
+            </div>
+            <button class="saved-filter" id="show-saved" type="button" aria-pressed="false"><span aria-hidden="true">♡</span> Guardadas <span id="saved-count">0</span></button>
+          </div>
+          <p id="results" class="results" role="status"></p>
+          <div id="gallery" class="gallery"></div>
+          <p class="empty" id="empty" hidden></p>
+          <noscript><p>Activa JavaScript para explorar el archivo y preparar una solicitud de prueba.</p></noscript>
+        </div>
+      </section>
+
+      <section class="artists page-width" id="artistas" aria-labelledby="art-title">
+        <div class="section-heading"><h2 id="art-title">Tres manos.</h2><p>Escoge según el tipo de trazo que imaginas para tu pieza.</p></div>
+        <div class="artist-list">
+          <article><span class="artist-symbol" aria-hidden="true">∿</span><h3>Alma Ríos</h3><p class="specialty">Línea fina</p><p>Composiciones ligeras con detalles botánicos y líneas geométricas que siguen la anatomía.</p><button class="text-link" data-artist="alma" type="button">Elegir a Alma</button></article>
+          <article><span class="artist-symbol blackwork-symbol" aria-hidden="true">◩</span><h3>Bruno Nava</h3><p class="specialty">Blackwork</p><p>Masas de tinta, geometría y espacio negativo, desde emblemas pequeños hasta piezas amplias.</p><button class="text-link" data-artist="bruno" type="button">Elegir a Bruno</button></article>
+          <article><span class="artist-symbol" aria-hidden="true">✷</span><h3>Vera Solís</h3><p class="specialty">Ornamental</p><p>Motivos simétricos de aire modernista, con curvas y detalles inspirados en joyería.</p><button class="text-link" data-artist="vera" type="button">Elegir a Vera</button></article>
+        </div>
+      </section>
+
+      <section class="brief" id="solicitud" aria-labelledby="brief-title">
+        <div class="page-width brief-inner">
+          <div class="section-heading"><h2 id="brief-title">Dale forma a tu idea</h2><p>Combina una referencia con el tamaño y la zona que tienes en mente. La solicitud es de prueba.</p></div>
+          <div class="brief-grid">
+            <form id="brief-form">
+              <div class="fields">
+                <label for="artist">Artista<select id="artist" name="artista" required><option value="">Elige a un artista</option><option value="alma">Alma Ríos</option><option value="bruno">Bruno Nava</option><option value="vera">Vera Solís</option></select></label>
+                <label for="placement">Zona del cuerpo<select id="placement" name="zona" required><option value="">Elige una zona</option><option>Antebrazo</option><option>Brazo</option><option>Hombro</option><option>Espalda</option><option>Pierna</option><option>Tobillo</option><option>Costado</option></select></label>
+                <label for="size">Tamaño aproximado<select id="size" name="tamano" required><option value="">Elige un tamaño</option><option>Hasta 5 cm</option><option>De 6 a 10 cm</option><option>De 11 a 18 cm</option><option>Más de 18 cm</option></select></label>
+                <label for="ink">Tinta<select id="ink" name="tinta"><option>Negro y gris</option><option>Negro con un acento de color</option><option>A color</option><option>Por definir</option></select></label>
+                <label class="full" for="reference">Pieza de referencia <span class="optional">Opcional</span><select id="reference" name="referencia"><option value="">Sin referencia guardada</option></select><span class="field-note">Tus piezas guardadas aparecen aquí.</span></label>
+                <label class="full" for="notes">Descripción de la idea <span class="optional">Opcional</span><textarea id="notes" name="descripcion" rows="3" maxlength="200" placeholder="Ejemplo: una rama de olivo con hojas finas"></textarea><span class="field-note">Describe el diseño en hasta 200 caracteres.</span></label>
+              </div>
+              <button class="button accent" type="submit">Generar solicitud de prueba</button>
+            </form>
+
+            <aside class="proof" aria-labelledby="proof-title">
+              <div class="proof-top"><h3 id="proof-title">Tu ficha</h3><span class="proof-status" id="proof-status">Borrador</span></div>
+              <div class="proof-ref" id="proof-ref" hidden><img id="proof-image" width="480" height="420" alt=""><span id="proof-ref-title"></span></div>
+              <dl class="proof-data"><div><dt>Artista</dt><dd id="proof-artist">Por definir</dd></div><div><dt>Zona</dt><dd id="proof-place">Por definir</dd></div><div><dt>Tamaño</dt><dd id="proof-size">Por definir</dd></div><div><dt>Tinta</dt><dd id="proof-ink">Negro y gris</dd></div></dl>
+              <p id="request-message" class="request-message" role="status"></p>
+              <div id="summary-tools" class="summary-tools" hidden><label for="summary">Resumen de la solicitud</label><textarea id="summary" rows="5" readonly></textarea><button class="button ghost" id="copy" type="button">Copiar resumen</button></div>
+            </aside>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="page-width footer"><span>Tinta Norte · Estudio de muestra</span><a href="../../index.html">Volver al portafolio</a></footer>
+
+    <dialog id="work-dialog" class="work-dialog" aria-labelledby="work-title">
+      <div class="dialog-top"><p id="work-position" role="status" aria-live="polite"></p><button class="icon-button close" id="close" type="button" aria-label="Cerrar detalle" autofocus>×</button></div>
+      <div class="dialog-layout">
+        <figure class="focus-frame"><img id="work-photo" alt="" width="560" height="640"></figure>
+        <div class="work-info"><p id="work-style"></p><h2 id="work-title"></h2><p id="work-artist"></p><p id="work-description"></p><div class="detail-actions"><button class="button accent" type="button" id="use-reference">Usar de referencia</button><button class="button ghost" type="button" id="toggle-work-saved" aria-pressed="false">Guardar pieza</button></div></div>
+      </div>
+      <div class="dialog-nav" role="group" aria-label="Navegar entre piezas"><button class="button ghost" id="prev" type="button">Anterior</button><button class="button ghost" id="next" type="button">Siguiente</button></div>
+    </dialog>
+
+    <template id="work-template">
+      <article class="work">
+        <div class="work-visual"><button class="work-open" type="button"><img alt="" width="480" height="560" loading="lazy"></button><button class="icon-button favorite" type="button" aria-pressed="false"><span aria-hidden="true">♡</span></button></div>
+        <div class="work-caption"><div><h3></h3><p class="byline"></p></div><p class="work-tag"></p></div>
+      </article>
+    </template>
+  </body>
+</html>

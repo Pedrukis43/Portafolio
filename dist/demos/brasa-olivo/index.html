@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explora la carta y prueba el flujo de reservación de Brasa &amp; Olivo, un restaurante de demostración.">
+  <meta name="theme-color" content="#25291e">
+  <title>Brasa &amp; Olivo | Cocina de temporada</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Ir al contenido</a>
+
+  <div class="demo-bar">
+    <div class="wrap demo-inner">
+      <a href="../../index.html">Volver al portafolio</a>
+      <span>Restaurante ficticio</span>
+    </div>
+  </div>
+
+  <header class="site-header" id="inicio">
+    <div class="wrap site-nav">
+      <a class="wordmark" href="#inicio" aria-label="Brasa y Olivo, inicio">Brasa <span>&amp;</span> Olivo</a>
+      <nav aria-label="Navegación del restaurante">
+        <a href="#carta">La carta</a>
+        <a class="button button-outline" href="#reservas">Reservar</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-picture" aria-hidden="true"></div>
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="kicker">Bistró de temporada</p>
+          <h1 id="hero-title">Cocina a<br>fuego lento</h1>
+          <p class="hero-description">Del huerto a la brasa. Una carta que cambia con la temporada y mesas que invitan a quedarse.</p>
+          <a class="button button-solid" href="#reservas">Reserva tu mesa</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="menu" id="carta" aria-labelledby="menu-title">
+      <div class="wrap menu-layout">
+        <div class="menu-intro">
+          <h2 id="menu-title">La carta</h2>
+          <p>Vegetales de temporada, cortes al carbón y sobremesas para compartir.</p>
+          <p class="menu-currency">Precios de muestra en MXN</p>
+        </div>
+
+        <div class="menu-content">
+          <div class="menu-controls" role="group" aria-label="Filtrar la carta" hidden>
+            <button type="button" data-category="entradas" aria-pressed="true">Entradas</button>
+            <button type="button" data-category="fuertes" aria-pressed="false">Fuertes</button>
+            <button type="button" data-category="postres" aria-pressed="false">Postres</button>
+          </div>
+
+          <section class="menu-category" data-menu="entradas" aria-label="Entradas">
+            <h3>Entradas</h3>
+            <ul class="dish-list">
+              <li><div><h4>Zanahorias a la brasa</h4><p>Yogur de limón, pepitas tostadas y eneldo.</p></div><span>$165</span></li>
+              <li><div><h4>Burrata con jitomates</h4><p>Jitomate rostizado, aceite de albahaca y masa madre.</p></div><span>$220</span></li>
+              <li><div><h4>Coliflor dorada</h4><p>Mole de almendra, limón amarillo y hierbas frescas.</p></div><span>$185</span></li>
+            </ul>
+          </section>
+
+          <section class="menu-category" data-menu="fuertes" aria-label="Fuertes">
+            <h3>Fuertes</h3>
+            <ul class="dish-list">
+              <li><div><h4>Costilla al carbón</h4><p>Puré de apionabo, cebolla tatemada y jugo de cocción.</p></div><span>$395</span></li>
+              <li><div><h4>Pesca del día</h4><p>Mantequilla de chile güero, papas y ensalada de hinojo.</p></div><span>$340</span></li>
+              <li><div><h4>Arroz de hongos</h4><p>Setas de temporada, ajo asado y queso añejo.</p></div><span>$265</span></li>
+            </ul>
+          </section>
+
+          <section class="menu-category" data-menu="postres" aria-label="Postres">
+            <h3>Postres</h3>
+            <ul class="dish-list">
+              <li><div><h4>Flan de vainilla</h4><p>Caramelo oscuro y sal de mar.</p></div><span>$115</span></li>
+              <li><div><h4>Duraznos al carbón</h4><p>Crema fresca, miel y avellanas tostadas.</p></div><span>$125</span></li>
+              <li><div><h4>Tarta de chocolate</h4><p>Cacao amargo y crema batida con aceite de oliva.</p></div><span>$145</span></li>
+            </ul>
+          </section>
+          <p class="sr-only" id="menu-summary" role="status"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="reservations" id="reservas" aria-labelledby="reservations-title">
+      <div class="wrap reservations-layout">
+        <div class="reservations-intro">
+          <h2 id="reservations-title">Una mesa<br>para compartir</h2>
+          <p>Martes a sábado desde las 18:00.<br>Domingos desde las 14:00.</p>
+          <p class="timezone">Hora de Ciudad de México</p>
+        </div>
+
+        <div class="booking">
+          <h3>Prueba una reserva</h3>
+          <p class="booking-note" id="booking-note">Simulación sin envío de datos ni reservaciones reales.</p>
+          <p id="booking-fallback">Activa JavaScript para probar el formulario de reservas.</p>
+          <form id="booking-form" aria-describedby="booking-note" hidden>
+            <div class="booking-fields">
+              <label for="party">Personas</label>
+              <select id="party" name="party" required>
+                <option value="1">1 persona</option>
+                <option value="2" selected>2 personas</option>
+                <option value="3">3 personas</option>
+                <option value="4">4 personas</option>
+                <option value="5">5 personas</option>
+                <option value="6">6 personas</option>
+              </select>
+
+              <label for="date">Fecha</label>
+              <input type="date" id="date" name="date" aria-describedby="booking-availability" required>
+
+              <label for="time">Hora</label>
+              <select id="time" name="time" aria-describedby="booking-availability" required disabled></select>
+            </div>
+            <p id="booking-availability" class="booking-availability" role="status">Elige una fecha para ver los horarios.</p>
+            <button class="button button-solid" id="confirm-booking" type="submit" disabled>Simular reserva</button>
+            <div class="booking-result" id="booking-result" tabindex="-1" hidden>
+              <h4>Reserva de prueba confirmada</h4>
+              <p id="booking-details"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <a class="wordmark" href="#inicio">Brasa <span>&amp;</span> Olivo</a>
+      <a href="../../index.html">Volver al portafolio</a>
+    </div>
+  </footer>
+</body>
+</html>

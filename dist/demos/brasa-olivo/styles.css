@@ -1,0 +1,234 @@
+:root {
+  color-scheme: light;
+  --olive: #25291e;
+  --olive-dark: #191c14;
+  --olive-raised: #303528;
+  --paper: #f6f0e3;
+  --ink: #25251b;
+  --faded: #625e51;
+  --gold: #e6b077;
+  --line: #d8cdb9;
+  --serif: Baskerville, "Baskerville Old Face", "Iowan Old Style", Georgia, serif;
+  --sans: "Trebuchet MS", system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; background: var(--olive); color: var(--paper); font: 1rem/1.55 var(--sans); }
+a { color: inherit; }
+button, select, input { font: inherit; }
+h1, h2, h3, h4, p { margin: 0; }
+h1, h2, h3, h4 { text-wrap: balance; }
+[hidden] { display: none !important; }
+section[id] { scroll-margin-top: 1rem; }
+:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+
+.wrap { width: min(88%, 74rem); margin-inline: auto; }
+.skip-link, .sr-only, .menu-controls:not([hidden]) ~ .menu-category > h3 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.skip-link:focus {
+  z-index: 5;
+  top: 1rem;
+  left: 1rem;
+  width: auto;
+  height: auto;
+  padding: .75rem 1rem;
+  clip-path: none;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.demo-bar {
+  background: var(--olive-dark);
+  color: #ded8c5;
+  font-size: .875rem;
+}
+.demo-inner, .site-nav, .footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.demo-inner { min-height: 2.75rem; }
+.demo-inner a, .site-footer a { text-underline-offset: .25em; }
+.demo-inner a:hover, .site-footer a:hover { color: var(--gold); }
+.site-header { border-bottom: 1px solid #ffffff24; }
+.site-nav { min-height: 5rem; }
+.site-nav nav { display: flex; align-items: center; gap: clamp(1rem, 3vw, 2.5rem); }
+.site-nav nav > a:not(.button) { text-decoration-thickness: 1px; text-underline-offset: .3em; }
+.wordmark {
+  flex: none;
+  font: 500 clamp(1.4rem, 3.4vw, 2rem)/1 var(--serif);
+  letter-spacing: -.04em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.wordmark span { color: var(--gold); }
+
+.button {
+  display: inline-flex;
+  min-height: 3rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  padding: .625rem 1.25rem;
+  font-size: .9375rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.button-solid { background: var(--gold); color: #211a12; }
+.button-solid:hover:not(:disabled) { background: #f4c492; }
+.button-outline { border-color: #f6f0e370; }
+.button-outline:hover { border-color: var(--gold); color: var(--gold); }
+.button:disabled { opacity: .55; cursor: not-allowed; }
+.button:not(:disabled), .menu-controls button { cursor: pointer; }
+
+.hero {
+  position: relative;
+  isolation: isolate;
+  background: var(--olive);
+}
+.hero-picture {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 0 29%;
+  background: linear-gradient(90deg, var(--olive) 0%, #25291e80 32%, #25291e14 66%),
+    url("../../assets/brasa.webp") center 55% / cover no-repeat,
+    radial-gradient(ellipse at 80% 50%, #735339, #292b20 68%);
+}
+.hero-inner { display: grid; min-height: min(37.5rem, 77svh); align-items: center; }
+.hero-copy { padding-block: clamp(3.5rem, 7vw, 7rem); }
+.kicker { margin-bottom: 1.25rem; color: #f1be86; font-weight: 700; }
+.hero h1 {
+  max-width: 11ch;
+  font: 400 clamp(4.15rem, 9.1vw, 9rem)/.84 var(--serif);
+  letter-spacing: -.06em;
+}
+.hero-description { max-width: 33ch; margin-block: 1.65rem 1.6rem; color: #ece5d1; }
+.hero .button-solid:focus-visible, .booking .button-solid:focus-visible { outline-color: var(--paper); }
+
+.menu {
+  padding-block: clamp(4rem, 8vw, 7rem);
+  background: var(--paper);
+  color: var(--ink);
+}
+.menu-layout, .reservations-layout {
+  display: grid;
+  grid-template-columns: minmax(13rem, .8fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: clamp(2rem, 7.25vw, 7rem);
+}
+.menu h2, .reservations h2 {
+  margin-bottom: 1.1rem;
+  font: 400 clamp(3.4rem, 6vw, 6.2rem)/.88 var(--serif);
+  letter-spacing: -.055em;
+}
+.menu-intro > p { max-width: 30ch; }
+.menu-currency, .timezone { margin-top: 1.25rem; font-size: .875rem; }
+.menu-currency, .dish-list p { color: var(--faded); }
+.menu-controls { display: flex; flex-wrap: wrap; gap: .4rem .7rem; border-bottom: 1px solid var(--line); }
+.menu-controls button {
+  margin-bottom: -1px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  padding: .55rem .65rem .85rem;
+  background: transparent;
+  color: var(--faded);
+  font-weight: 700;
+}
+.menu-controls button[aria-pressed="true"] { border-color: #8b4627; color: #763519; }
+.menu-controls button:hover { color: #763519; }
+.menu-category + .menu-category:not([hidden]) { margin-top: 1.2rem; }
+.menu-controls:not([hidden]) ~ .menu-category:not([hidden]) { margin-top: 0; }
+.menu-category h3 { font: 500 1.5rem var(--serif); }
+.dish-list { margin: 0; padding: 0; list-style: none; }
+.dish-list li {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 1px solid var(--line);
+  padding-block: 1.2rem;
+}
+.dish-list h4 { margin-bottom: .25rem; font: 500 clamp(1.35rem, 2.8vw, 1.75rem)/1.1 var(--serif); text-wrap: wrap; }
+.dish-list span { font-weight: 700; font-variant-numeric: tabular-nums; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .menu-controls[data-used="true"] ~ .menu-category:not([hidden]) .dish-list {
+    animation: show-carta .18s ease-out both;
+  }
+  @keyframes show-carta {
+    from { opacity: .55; }
+    to { opacity: 1; }
+  }
+}
+
+.reservations { padding-block: clamp(4rem, 8vw, 7rem); }
+.reservations-intro { padding-top: .75rem; }
+.reservations-intro > p { color: #e0dac8; }
+.timezone { color: #ede6d4; }
+.booking {
+  background: var(--olive-raised);
+  border-top: 3px solid var(--gold);
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+.booking h3 { font: 400 clamp(1.9rem, 4vw, 2.6rem)/1 var(--serif); }
+.booking-note, .booking-availability { margin-block: .65rem 1.25rem; color: #e0dac8; }
+.booking-fields { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: center; gap: .7rem 1.2rem; }
+.booking-fields label { font-weight: 700; font-size: .9375rem; }
+.booking-fields input, .booking-fields select {
+  width: 100%;
+  min-height: 2.75rem;
+  padding: .45rem .55rem;
+  border: 1px solid #faf0d36b;
+  border-radius: 0;
+  background: #25291e;
+  color: var(--paper);
+  color-scheme: dark;
+}
+.booking-fields select {
+  appearance: none;
+  padding-right: 2rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--paper) 50%),
+    linear-gradient(135deg, var(--paper) 50%, transparent 50%);
+  background-size: .35rem .35rem;
+  background-position: right 1.1rem center, right .75rem center;
+  background-repeat: no-repeat;
+}
+.booking-fields select:disabled { opacity: .55; }
+.booking-availability { margin-bottom: 1rem; min-height: 1.5em; font-size: .875rem; }
+.booking-result { margin-top: 1.25rem; border: 1px solid #f6f0e35c; padding: 1rem; }
+.booking-result h4 { color: #f1be86; }
+.booking-result p { margin-top: .3rem; }
+
+.site-footer { border-top: 1px solid #ffffff24; padding-block: 1.6rem; }
+
+@media (max-width: 47rem) {
+  .site-nav { min-height: 4.25rem; }
+  .hero-inner { min-height: 0; }
+  .hero-picture {
+    inset: 0;
+    background-image: linear-gradient(90deg, #25291ef2 0%, #25291e88 66%, #25291e58 100%),
+      url("../../assets/brasa.webp"), radial-gradient(ellipse, #735339, #25291e 70%);
+    background-position: center, 60% center, center;
+  }
+  .hero-copy { padding-block: 4.25rem; }
+  .hero h1 { font-size: clamp(3.8rem, 11vw, 6rem); }
+  .menu-layout, .reservations-layout { grid-template-columns: minmax(0, 1fr); }
+  .reservations-intro { padding-top: 0; }
+}
+
+@media (max-width: 24rem) {
+  .wrap { width: 90%; }
+  .site-nav, .site-nav nav { gap: .65rem; }
+  .site-nav nav { font-size: .875rem; }
+  .site-nav .button { padding-inline: .65rem; }
+  .demo-bar { font-size: .8125rem; }
+  .hero h1 { font-size: 3.5rem; }
+}

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Acumula sellos y canjea un café con la tarjeta digital de Grano Club.">
+  <title>Grano Club | Tarjeta de café digital</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./grano.css">
+  <script src="./grano.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <div class="frame top-inner">
+      <a class="back" href="../../index.html"><span aria-hidden="true">‹</span> Portafolio</a>
+      <span class="demo">Demo interactiva</span>
+    </div>
+  </header>
+  <main class="frame">
+    <section class="hero" aria-labelledby="title">
+      <div class="hero-copy">
+        <a href="#tarjeta" class="wordmark"><span class="bean" aria-hidden="true"></span> Grano Club</a>
+        <h1 id="title">El café que<br>invita a volver.</h1>
+        <p>Junta 10 sellos y tu próximo café va por la casa.</p>
+      </div>
+      <div class="hero-media">
+        <img src="../../assets/grano.webp" alt="Taza de café de especialidad en la barra" fetchpriority="high">
+      </div>
+    </section>
+    <section id="tarjeta" class="loyalty" aria-labelledby="card-title">
+      <div class="card">
+        <header class="card-head">
+          <div><h2 id="card-title">Tu tarjeta</h2><p>Una compra de café equivale a un sello.</p></div>
+          <strong id="stamp-count" class="count">6 <span>/ 10</span></strong>
+        </header>
+        <div id="stamps" class="stamps" aria-hidden="true"></div>
+        <div class="progress-row">
+          <progress id="progress" value="6" max="10" aria-label="Sellos acumulados"></progress>
+          <p id="progress-caption">Te faltan 4 sellos.</p>
+        </div>
+      </div>
+      <aside class="reward" aria-labelledby="reward-title">
+        <span class="reward-icon" aria-hidden="true"><span class="cup"></span></span>
+        <h2 id="reward-title">Café de la casa</h2>
+        <p id="reward-copy">Con 10 sellos puedes canjear un café de la casa y empezar una nueva tarjeta.</p>
+        <div class="actions">
+          <button type="button" id="add-stamp" class="button primary">Simular visita</button>
+          <button type="button" id="redeem" class="button secondary" disabled>Canjear café</button>
+        </div>
+      </aside>
+    </section>
+    <div id="feedback" class="feedback" role="status"></div>
+    <footer class="foot">
+      <p><span id="redemption-count">0 cafés canjeados</span><span class="separator" aria-hidden="true"></span> Los sellos se guardan en este navegador.</p>
+      <button id="reset" type="button">Reiniciar tarjeta</button>
+    </footer>
+  </main>
+  <dialog id="reset-dialog" aria-labelledby="reset-title">
+    <form method="dialog">
+      <h2 id="reset-title">Reiniciar la tarjeta</h2>
+      <p>La tarjeta volverá a los seis sellos de ejemplo.</p>
+      <div class="dialog-actions">
+        <button class="button secondary" value="cancel" autofocus>Cancelar</button>
+        <button class="button primary" value="reset">Reiniciar</button>
+      </div>
+    </form>
+  </dialog>
+</body>
+</html>

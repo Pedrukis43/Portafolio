@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prueba el flujo entre una mesa y la cocina con pedidos, estados y avisos de servicio.">
+  <meta name="theme-color" content="#29211f">
+  <title>Mesa Lista | Pedidos en mesa y cocina</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Ir al contenido</a>
+  <header class="top">
+    <div class="wrap top-inner">
+      <a href="../../index.html">Volver al portafolio</a>
+      <span>Demo interactiva</span>
+    </div>
+  </header>
+
+  <main class="wrap" id="contenido">
+    <div class="navigation">
+      <a class="brand" href="index.html" aria-label="Mesa Lista, inicio"><span aria-hidden="true">M</span> Mesa Lista</a>
+      <div class="view-buttons" role="group" aria-label="Vista del restaurante">
+        <button type="button" data-view="mesa" aria-pressed="true">Mesa</button>
+        <button type="button" data-view="cocina" aria-pressed="false">Cocina</button>
+      </div>
+    </div>
+
+    <section class="intro" aria-labelledby="title">
+      <div class="intro-copy">
+        <p class="intro-label" data-table>Mesa 4</p>
+        <h1 id="title">Pide desde<br>tu mesa.</h1>
+        <p>Arma tu pedido y sigue su preparación desde aquí.</p>
+      </div>
+      <div class="intro-photo" aria-hidden="true"></div>
+    </section>
+
+    <p id="fallback">Activa JavaScript para probar los pedidos y el panel de cocina.</p>
+    <p class="demo-hint">Los pedidos y avisos de esta demo se comparten entre las vistas del mismo navegador.</p>
+    <p class="visually-hidden" id="announcement" role="status"></p>
+
+    <div id="dining" class="dining" hidden>
+      <div class="customer-main">
+        <section aria-labelledby="menu-title">
+          <h2 id="menu-title">La carta</h2>
+          <div id="menu" class="menu"></div>
+        </section>
+        <section id="guest-orders-section" aria-labelledby="guest-orders-title" hidden>
+          <h2 id="guest-orders-title">Tus pedidos</h2>
+          <div id="guest-orders" class="queue"></div>
+        </section>
+      </div>
+
+      <aside class="ticket" aria-label="Pedido y servicio">
+        <section class="ticket-main" aria-labelledby="cart-title">
+          <h2 id="cart-title" tabindex="-1">Tu pedido</h2>
+          <div id="cart"></div>
+          <div class="total"><span>Total</span><strong id="cart-total">$0</strong></div>
+          <button class="primary" id="send-order" type="button" disabled>Enviar a cocina</button>
+        </section>
+
+        <section class="service" aria-labelledby="service-title">
+          <h2 id="service-title">Atención en mesa</h2>
+          <div class="service-buttons">
+            <button type="button" class="secondary" data-request="mesero">Llamar al mesero</button>
+            <button type="button" class="secondary" data-request="cuenta">Pedir la cuenta</button>
+          </div>
+          <div id="guest-requests"></div>
+        </section>
+      </aside>
+      <a id="cart-jump" class="primary cart-jump" href="#cart-title" hidden>
+        <span>Ver pedido</span> <strong id="cart-jump-total"></strong>
+      </a>
+    </div>
+
+    <div id="kitchen" class="kitchen" hidden>
+      <section aria-labelledby="kitchen-title">
+        <div class="section-heading">
+          <h2 id="kitchen-title">Pedidos de cocina</h2>
+          <span data-table>Mesa 4</span>
+        </div>
+        <div id="staff-orders" class="queue"></div>
+      </section>
+      <section class="ticket service-queue" aria-labelledby="requests-title">
+        <h2 id="requests-title">Avisos de mesa</h2>
+        <div id="staff-requests" class="queue"></div>
+      </section>
+    </div>
+
+    <details class="qr-details">
+      <summary>Código QR de la mesa 4</summary>
+      <div class="qr-content">
+        <img id="table-qr" width="138" height="138" src="mesa-4.png" loading="lazy" alt="Código QR para abrir Mesa Lista en la mesa 4" hidden>
+        <div>
+          <p id="qr-description">Abre la mesa 4 para simular el acceso desde un código QR.</p>
+          <a class="secondary" href="?mesa=4">Abrir mesa 4</a>
+        </div>
+      </div>
+    </details>
+  </main>
+
+  <footer class="wrap footer">
+    <span>Mesa Lista</span>
+    <a href="../../index.html">Volver al portafolio</a>
+  </footer>
+</body>
+</html>

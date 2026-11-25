@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Portafolio web de Pedro Narváez. Explora proyectos y prueba sitios interactivos para distintos negocios.">
+    <meta name="theme-color" content="#f5f5f1">
+    <link rel="icon" href="assets/icon.png" type="image/png">
+    <link rel="stylesheet" href="styles.css">
+    <script src="portfolio.js" defer></script>
+    <title>Pedro Narváez | Diseño y desarrollo web</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+    <header class="site-header" id="inicio">
+      <div class="shell header-inner">
+        <a class="brand" href="#inicio"><img class="brand-mark" src="assets/icon.png" width="42" height="42" alt="">Pedro Narváez</a>
+        <nav class="top-nav" aria-label="Navegación principal">
+          <a href="#proyectos">Proyectos</a>
+          <a class="contact-link" href="#contacto">Contacto</a>
+        </nav>
+      </div>
+    </header>
+
+    <main id="contenido" class="shell">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-visual" aria-hidden="true"><img src="assets/hero.webp" alt="" fetchpriority="high" width="1536" height="1024"></div>
+        <div class="hero-content">
+          <p class="hero-label">Diseño y desarrollo web</p>
+          <h1 id="hero-title"><span>Sitios web para</span> <span>negocios locales.</span></h1>
+          <p class="hero-description">Diseño sitios donde tus clientes pueden conocer tu negocio, encontrar lo que buscan y dar el siguiente paso.</p>
+          <a href="#proyectos" class="button button-primary">Explorar proyectos</a>
+        </div>
+      </section>
+
+      <section class="work" id="proyectos" aria-labelledby="work-title">
+        <div class="work-heading">
+          <div class="work-intro">
+            <h2 id="work-title">Proyectos web</h2>
+            <p>Conoce los proyectos y prueba cómo funcionaría un sitio para tu negocio.</p>
+          </div>
+          <div class="work-toolbar" hidden>
+            <div class="filters" role="group" aria-label="Filtrar proyectos">
+              <button type="button" data-filter="all" aria-pressed="true">Todos</button>
+              <button type="button" data-filter="new" aria-pressed="false">Recientes</button>
+              <button type="button" data-filter="case" aria-pressed="false">Proyectos</button>
+              <button type="button" data-filter="demo" aria-pressed="false">Demos</button>
+            </div>
+            <p class="work-count" role="status"></p>
+          </div>
+        </div>
+
+        <div class="project-grid" id="galeria">
+          <article class="project project-lead" data-kind="demo" data-collection="new">
+            <div class="project-cover"><img src="assets/veta.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Muebles a medida <span>· Demo</span></p><h3>Veta</h3>
+              <p class="project-description">Gira el escritorio en 3D. Cambia las medidas, el acabado y los accesorios mientras se actualiza la cotización.</p>
+              <a class="project-action" href="demos/veta/index.html" aria-label="Probar demo de Veta">Configurar escritorio</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo" data-collection="new">
+            <div class="project-cover"><img src="assets/foro.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Eventos y boletos <span>· Demo</span></p><h3>Foro Vivo</h3>
+              <p class="project-description">Recorre la cartelera, cambia de función y elige asientos en el plano del recinto.</p>
+              <a class="project-action" href="demos/foro-vivo/index.html" aria-label="Probar demo de Foro Vivo">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo" data-collection="new">
+            <div class="project-cover"><img src="assets/marea.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Hotel boutique <span>· Demo</span></p><h3>Casa Marea</h3>
+              <p class="project-description">Recorre la casa, compara habitaciones y arma una estancia con fechas, huéspedes y extras.</p>
+              <a class="project-action" href="demos/casa-marea/index.html" aria-label="Probar demo de Casa Marea">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo" data-collection="new">
+            <div class="project-cover"><img src="assets/tinta.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Estudio de tatuajes <span>· Demo</span></p><h3>Tinta Norte</h3>
+              <p class="project-description">Explora estilos, guarda referencias y arma una solicitud con artista, zona y tamaño.</p>
+              <a class="project-action" href="demos/tinta-norte/index.html" aria-label="Probar demo de Tinta Norte">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo" data-collection="new">
+            <div class="project-cover"><img src="assets/solar.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Energía solar <span>· Demo</span></p><h3>Sol de Patio</h3>
+              <p class="project-description">Diseña un techo, marca zonas de sombra y compara dos configuraciones de paneles.</p>
+              <a class="project-action" href="demos/sol-de-patio/index.html" aria-label="Probar demo de Sol de Patio">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="case">
+            <div class="project-cover cover-precio">
+              <img src="assets/precionauta.webp" alt="" width="1080" height="675" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-kind">Comparador de precios</p>
+              <h3>Precionauta</h3>
+              <p class="project-description">Ofertas en México con historial de precios, filtros y alertas.</p>
+              <a class="project-action" href="#precionauta" data-case="precionauta" aria-label="Ver ficha de Precionauta">Ver ficha</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="case">
+            <div class="project-cover cover-atelier">
+              <img src="assets/atelier.webp" alt="" width="1080" height="675" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-kind">Impresión 3D</p>
+              <h3>Atelier</h3>
+              <p class="project-description">Un recorrido interactivo por la fabricación de piezas a medida.</p>
+              <a class="project-action" href="#atelier" data-case="atelier" aria-label="Ver ficha de Atelier">Ver ficha</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover cover-brasa">
+              <img src="assets/brasa.webp" alt="" width="1536" height="1024" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-kind">Restaurante <span>· Demo</span></p>
+              <h3>Brasa &amp; Olivo</h3>
+              <p class="project-description">Explora el menú por categoría y simula la reserva de una mesa.</p>
+              <a class="project-action" href="demos/brasa-olivo/index.html" aria-label="Probar demo de Brasa y Olivo">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover cover-habita">
+              <img src="assets/habita.webp" alt="" width="1536" height="1024" loading="lazy">
+            </div>
+            <div class="project-body">
+              <p class="project-kind">Inmobiliaria <span>· Demo</span></p>
+              <h3>Habita</h3>
+              <p class="project-description">Filtra propiedades en venta o renta y guarda tus favoritas.</p>
+              <a class="project-action" href="demos/habita/index.html" aria-label="Probar demo de Habita">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover"><img src="assets/barberia.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Barbería <span>· Demo</span></p><h3>Punto Fino</h3>
+              <p class="project-description">Elige servicio y barbero, y aparta un horario disponible.</p>
+              <a class="project-action" href="demos/punto-fino/index.html" aria-label="Probar demo de Punto Fino">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover"><img src="assets/mesa-lista.webp" alt="" width="1280" height="805" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Pedidos por QR <span>· Demo</span></p><h3>Mesa Lista</h3>
+              <p class="project-description">Abre la carta de una mesa, envía un pedido y avánzalo desde cocina.</p>
+              <a class="project-action" href="demos/mesa-lista/index.html" aria-label="Probar demo de Mesa Lista">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover"><img src="assets/caja-clara.webp" alt="" width="1080" height="675" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Control de caja <span>· Demo</span></p><h3>Caja Clara</h3>
+              <p class="project-description">Registra entradas y salidas, consulta el saldo y practica el cierre de turno.</p>
+              <a class="project-action" href="demos/caja-clara/index.html" aria-label="Probar demo de Caja Clara">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover"><img src="assets/grano.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Fidelización <span>· Demo</span></p><h3>Grano Club</h3>
+              <p class="project-description">Suma visitas en la tarjeta de una cafetería y canjea una recompensa.</p>
+              <a class="project-action" href="demos/grano-club/index.html" aria-label="Probar demo de Grano Club">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover"><img src="assets/forma.webp" alt="" width="1080" height="675" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Tienda en línea <span>· Demo</span></p><h3>Forma</h3>
+              <p class="project-description">Explora el catálogo, arma tu carrito y elige cómo recibir tu compra.</p>
+              <a class="project-action" href="demos/forma/index.html" aria-label="Probar demo de Forma">Probar demo</a>
+            </div>
+          </article>
+
+          <article class="project" data-kind="demo">
+            <div class="project-cover"><img src="assets/taller.webp" alt="" width="1536" height="1024" loading="lazy"></div>
+            <div class="project-body">
+              <p class="project-kind">Taller automotriz <span>· Demo</span></p><h3>Kilómetro 40</h3>
+              <p class="project-description">Calcula un mantenimiento según tu vehículo y los servicios que necesitas.</p>
+              <a class="project-action" href="demos/kilometro-40/index.html" aria-label="Probar demo de Kilómetro 40">Probar demo</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section class="case-details" aria-label="Fichas de proyecto">
+        <article class="case" id="precionauta" aria-labelledby="precionauta-title">
+          <header class="case-header">
+            <div><p class="project-kind">Proyecto académico en equipo</p><h2 id="precionauta-title">Precionauta</h2></div>
+            <button type="button" class="close-case" aria-label="Cerrar ficha" hidden>×</button>
+          </header>
+          <img src="assets/precionauta.webp" alt="Pantalla de Precionauta con su interfaz en amarillo, crema y lila." width="1080" height="675" loading="lazy">
+          <p>Precionauta reúne ofertas disponibles en México. Permite explorar el catálogo, consultar el historial de un producto y configurar avisos cuando baja de precio o vuelve a estar disponible.</p>
+          <dl><div><dt>Mi contribución</dt><dd>Backend y API</dd></div><div><dt>Contexto</dt><dd>Universidad Modelo</dd></div></dl>
+          <a class="button button-dark" href="https://github.com/Ernest0777/Precionauta_Proyectos_V/tree/Neo_Brutalism" target="_blank" rel="noopener noreferrer">Ver código en GitHub</a>
+        </article>
+
+        <article class="case" id="atelier" aria-labelledby="atelier-title">
+          <header class="case-header">
+            <div><p class="project-kind">Sitio web · Impresión 3D</p><h2 id="atelier-title">Atelier</h2></div>
+            <button type="button" class="close-case" aria-label="Cerrar ficha" hidden>×</button>
+          </header>
+          <img src="assets/atelier.webp" alt="Portada de Atelier con el modelo de una impresora 3D." width="1080" height="675" loading="lazy">
+          <p>Atelier presenta el trabajo de un estudio mexicano de diseño e impresión 3D. El recorrido muestra cómo el filamento se transforma en una pieza. La web incluye comparaciones de acabados y un cotizador para proyectos a medida.</p>
+          <dl><div><dt>Experiencia</dt><dd>Modelos 3D, recorrido y cotizador</dd></div><div><dt>Tecnologías</dt><dd>Astro, Three.js y GSAP</dd></div></dl>
+        </article>
+      </section>
+    </main>
+
+    <footer id="contacto" class="site-footer">
+      <div class="shell footer-inner">
+        <h2>¿Tienes un proyecto en mente?</h2>
+        <address class="footer-contact">
+          <a href="tel:+529811123957">+52 9811123957</a>
+          <a href="mailto:narvaezflorespedro43@hotmail.com">narvaezflorespedro43@hotmail.com</a>
+          <a class="button button-secondary" href="https://github.com/Pedrukis43" target="_blank" rel="noopener noreferrer">Mi perfil en GitHub</a>
+        </address>
+      </div>
+    </footer>
+
+    <dialog class="case-dialog" aria-label="Ficha del proyecto"></dialog>
+  </body>
+</html>

@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Casa Marea, hotel boutique de muestra. Recorre sus espacios, compara habitaciones y simula una estancia.">
+  <meta name="theme-color" content="#223c32">
+  <title>Casa Marea | Hotel en la península de Yucatán</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header class="header" id="inicio">
+    <div class="preview-bar wrap"><a href="../../index.html">Portafolio de Pedro Narváez</a><span>Hotel de muestra</span></div>
+    <div class="nav-bar wrap">
+      <a class="wordmark" href="#inicio">Casa Marea</a>
+      <nav aria-label="Navegación del hotel"><a class="tour-link" href="#casa">La casa</a><a class="button nav-button" href="#estancia">Ver estancias</a></nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-art"><img src="../../assets/marea.webp" alt="" width="1536" height="1024" fetchpriority="high"></div>
+      <div class="wrap hero-copy">
+        <p class="eyebrow">Hotel boutique en Yucatán</p>
+        <h1 id="hero-title">Una pausa entre palmas.</h1>
+        <a class="button light" href="#casa">Recorrer la casa</a>
+      </div>
+    </section>
+
+    <section class="tour wrap" id="casa" aria-labelledby="tour-title">
+      <div class="tour-intro"><h2 id="tour-title">La casa, a tu ritmo.</h2><p>Tres espacios para quedarte cerca del agua y del jardín.</p></div>
+      <div class="tour-layout">
+        <div class="tour-stage" aria-hidden="true" hidden>
+          <img src="../../assets/marea-piscina.webp" alt="" width="760" height="630" loading="lazy" data-scene="piscina" class="is-current">
+          <img src="../../assets/marea-jardin.webp" alt="" width="760" height="630" loading="lazy" data-scene="jardin">
+          <img src="../../assets/marea-terraza.webp" alt="" width="760" height="630" loading="lazy" data-scene="terraza">
+          <p data-tour-caption>La piscina</p>
+        </div>
+        <div class="tour-stops">
+          <article class="stop" data-stop="piscina">
+            <img src="../../assets/marea-piscina.webp" alt="Piscina sombreada por arcos de chukum y un árbol" width="760" height="630" loading="lazy">
+            <div><h3>La piscina</h3><p>Un baño al volver del sol, con camastros bajo los arcos y sombra junto al agua.</p></div>
+          </article>
+          <article class="stop" data-stop="jardin">
+            <img src="../../assets/marea-jardin.webp" alt="Habitación con una cama de lino y puertas abiertas al jardín" width="760" height="630" loading="lazy">
+            <div><h3>Las habitaciones</h3><p>Lino, madera y puertas que se abren al jardín. Elige entre una habitación íntima, una suite o tu propia casita.</p><a href="#estancia">Comparar habitaciones</a></div>
+          </article>
+          <article class="stop" data-stop="terraza">
+            <img src="../../assets/marea-terraza.webp" alt="Terraza de la casa con plantas, sala exterior y hamaca" width="760" height="630" loading="lazy">
+            <div><h3>La terraza</h3><p>Desayuna al aire libre o lee desde una hamaca cuando baja el sol.</p></div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="stay" id="estancia" aria-labelledby="stay-heading">
+      <div class="wrap">
+        <div class="stay-intro"><h2 id="stay-heading">Encuentra tu estancia.</h2><p>Consulta habitaciones, combina extras y revisa el total de tu reserva de prueba.</p></div>
+        <form id="stay-form" class="stay-form">
+          <div class="search" aria-label="Fechas y huéspedes">
+            <div><label for="arrival">Llegada</label><input type="date" id="arrival" name="arrival" required></div>
+            <div><label for="departure">Salida</label><input type="date" id="departure" name="departure" required></div>
+            <div><label for="guests">Huéspedes</label><select id="guests" name="guests"><option value="1">1 persona</option><option value="2" selected>2 personas</option><option value="3">3 personas</option><option value="4">4 personas</option></select></div>
+          </div>
+          <p class="availability" id="availability" role="status"></p>
+          <div class="stay-layout">
+            <div class="stay-options">
+              <fieldset>
+                <legend>Habitaciones</legend>
+                <div class="rooms">
+                  <label class="room">
+                    <img src="../../assets/marea-jardin.webp" alt="" width="760" height="630" loading="lazy">
+                    <span class="room-info"><span class="room-title"><input type="radio" name="room" value="jardin"><strong>Habitación Jardín</strong></span><span>Hasta 2 personas · Cama queen · Jardín</span><span class="room-rate">Desde $2,400 MXN / noche</span><span class="room-status" data-room-status="jardin"></span></span>
+                  </label>
+                  <label class="room">
+                    <img src="../../assets/marea-laguna.webp" alt="" width="760" height="630" loading="lazy">
+                    <span class="room-info"><span class="room-title"><input type="radio" name="room" value="laguna"><strong>Suite Laguna</strong></span><span>Hasta 3 personas · Cama king · Balcón</span><span class="room-rate">Desde $3,300 MXN / noche</span><span class="room-status" data-room-status="laguna"></span></span>
+                  </label>
+                  <label class="room">
+                    <img src="../../assets/marea-terraza.webp" alt="" width="760" height="630" loading="lazy">
+                    <span class="room-info"><span class="room-title"><input type="radio" name="room" value="casita"><strong>Casita Palma</strong></span><span>Hasta 4 personas · Dos camas · Terraza privada</span><span class="room-rate">Desde $4,400 MXN / noche</span><span class="room-status" data-room-status="casita"></span></span>
+                  </label>
+                </div>
+              </fieldset>
+              <fieldset class="extras">
+                <legend>Extras</legend>
+                <label><input type="checkbox" id="breakfast"><span>Desayuno en la terraza</span><strong>$250 por persona y noche</strong></label>
+                <label><input type="checkbox" id="transfer"><span>Traslado privado de llegada</span><strong>$850 por estancia</strong></label>
+              </fieldset>
+            </div>
+            <aside class="summary" aria-labelledby="summary-heading">
+              <h3 id="summary-heading">Tu estancia</h3>
+              <p id="summary-room">Elige una habitación disponible.</p>
+              <p id="summary-dates"></p>
+              <dl><div><dt>Alojamiento</dt><dd id="lodging">—</dd></div><div><dt>Extras</dt><dd id="extras">—</dd></div></dl>
+              <div class="summary-total"><span>Total de muestra</span><output id="stay-total" aria-live="polite">—</output></div>
+              <button class="button full" id="reserve" type="submit" disabled>Simular reserva</button>
+              <p class="disclosure">La simulación usa disponibilidad y precios ficticios.</p>
+            </aside>
+          </div>
+        </form>
+        <noscript><p>Activa JavaScript para consultar fechas y simular la estancia.</p></noscript>
+      </div>
+    </section>
+  </main>
+
+  <footer><div class="wrap footer-inner"><a class="wordmark" href="#inicio">Casa Marea</a><a href="../../index.html">Volver al portafolio</a></div></footer>
+
+  <dialog id="confirmation" aria-labelledby="confirmation-title">
+    <p class="eyebrow">Casa Marea</p><h2 id="confirmation-title">Reserva simulada</h2>
+    <p id="confirmation-details"></p><p id="confirmation-total"></p>
+    <form method="dialog"><button type="submit" class="button">Volver a la estancia</button></form>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Demo de un taller automotriz con cotizador interactivo de mantenimiento.">
+    <title>Kilómetro 40 | Taller automotriz</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#contenido">Saltar al contenido</a>
+    <div class="demo-bar"><div class="inner"><a href="../../index.html">Volver al portafolio</a><span>Demo · Taller automotriz</span></div></div>
+    <header class="site-top inner">
+      <a href="#contenido" class="logo"><span aria-hidden="true">K40</span> Kilómetro 40</a><a class="button" href="#cotizador">Cotizar servicio</a>
+    </header>
+    <main id="contenido">
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="inner hero-inner">
+          <div><p class="tag">Mantenimiento automotriz</p><h1 id="hero-heading">Tu auto, listo para la ruta.</h1><p>Elige tu vehículo y calcula cuánto cuesta su próximo mantenimiento.</p><a href="#cotizador" class="button">Probar cotizador</a></div>
+          <img src="../../assets/taller.webp" alt="Técnico revisando el frente de un auto en el taller" width="1536" height="1024" fetchpriority="high">
+        </div>
+      </section>
+      <section class="inner estimate" id="cotizador" aria-labelledby="estimate-heading">
+        <h2 id="estimate-heading">Cotiza tu servicio</h2>
+        <p>Precios de ejemplo en pesos mexicanos.</p>
+        <form class="estimate-grid" id="estimate-form">
+          <div class="options">
+            <fieldset>
+              <legend>Tipo de vehículo</legend>
+              <div class="tiles">
+                <label><input type="radio" name="vehiculo" value="Compacto" data-price="990" checked><span>Compacto</span></label>
+                <label><input type="radio" name="vehiculo" value="Sedán" data-price="1190"><span>Sedán</span></label>
+                <label><input type="radio" name="vehiculo" value="SUV o pickup" data-price="1470"><span>SUV o pickup</span></label>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Servicios adicionales</legend>
+              <div class="extras">
+                <label><input type="checkbox" name="servicio" value="Alineación y balanceo" data-price="460"><span>Alineación y balanceo</span><strong>$460</strong></label>
+                <label><input type="checkbox" name="servicio" value="Revisión de frenos" data-price="320"><span>Revisión de frenos</span><strong>$320</strong></label>
+                <label><input type="checkbox" name="servicio" value="Cambio de filtro de cabina" data-price="280"><span>Cambio de filtro de cabina</span><strong>$280</strong></label>
+              </div>
+            </fieldset>
+          </div>
+          <div class="estimate-summary">
+            <h3>Tu estimado</h3>
+            <p id="base-label">Mantenimiento básico · Compacto</p>
+            <p class="small">Cambio de aceite y filtro, inspección de niveles y presión de llantas.</p>
+            <ul id="extra-lines"></ul>
+            <div class="total"><span>Total estimado</span><output id="estimate-total" aria-live="polite">$990 MXN</output></div>
+            <button class="button" type="submit">Simular solicitud</button>
+            <p class="notice" id="estimate-result" role="status"></p>
+          </div>
+        </form>
+      </section>
+    </main>
+    <footer class="inner">Kilómetro 40 · Taller de muestra</footer>
+  </body>
+</html>

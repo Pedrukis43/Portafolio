@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Prueba un turno de caja con ventas, gastos y un corte simulado.">
+  <title>Caja Clara | Demo de punto de venta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Geist:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./caja.css">
+  <script src="./caja.js" defer></script>
+</head>
+<body>
+  <header class="bar">
+    <div class="frame bar-inner">
+      <a href="../../index.html" class="back"><span aria-hidden="true">‹</span> Portafolio</a>
+      <span class="demo-label">Demo interactiva</span>
+    </div>
+  </header>
+  <main class="frame">
+    <header class="intro">
+      <div>
+        <p class="brand"><span class="brand-mark" aria-hidden="true"></span> Caja Clara</p>
+        <h1>Control de caja</h1>
+        <p class="lede">Registra los movimientos del turno y prepara tu corte.</p>
+      </div>
+      <div class="shift">
+        <span id="shift-status" class="shift-status">Caja abierta</span>
+        <button type="button" id="shift-action" class="button outline">Preparar corte</button>
+      </div>
+    </header>
+    <div class="financial">
+      <section class="balance" aria-label="Resumen de caja">
+        <div class="balance-top"><p>Efectivo esperado</p><span>MXN</span></div>
+        <p class="balance-total" id="balance">$0.00</p>
+        <dl class="figures">
+          <div><dt>Fondo inicial</dt><dd id="opening">$0.00</dd></div>
+          <div><dt>Entradas</dt><dd id="income">$0.00</dd></div>
+          <div><dt>Salidas</dt><dd id="expenses">$0.00</dd></div>
+        </dl>
+      </section>
+      <section class="activity" aria-labelledby="activity-title">
+        <div class="activity-head">
+          <div><h2 id="activity-title">Flujo del turno</h2><p id="transaction-count">0 movimientos</p></div>
+          <span aria-hidden="true" class="activity-mark">≋</span>
+        </div>
+        <div class="distribution">
+          <div class="distribution-label"><span>Entradas</span><span id="income-percent">0 %</span></div>
+          <div class="track" aria-hidden="true"><div id="income-bar" class="level in"></div></div>
+          <div class="distribution-label"><span>Salidas</span><span id="expense-percent">0 %</span></div>
+          <div class="track" aria-hidden="true"><div id="expense-bar" class="level out"></div></div>
+        </div>
+      </section>
+    </div>
+    <div class="workspace">
+      <section class="panel journal" aria-labelledby="journal-title">
+        <div class="panel-heading"><h2 id="journal-title">Movimientos</h2><p>Del más reciente al más antiguo.</p></div>
+        <table>
+          <thead><tr><th scope="col">Concepto</th><th scope="col">Hora</th><th scope="col">Monto (MXN)</th></tr></thead>
+          <tbody id="entries"></tbody>
+        </table>
+      </section>
+      <section class="panel entry-panel" aria-labelledby="entry-title">
+        <div class="panel-heading"><h2 id="entry-title">Nuevo movimiento</h2><p>Solo operaciones en efectivo.</p></div>
+        <p id="closed-message" class="notice" hidden>La caja está cerrada. Reabre el turno para registrar otro movimiento.</p>
+        <form id="entry-form">
+          <fieldset id="entry-fields">
+            <legend>Tipo</legend>
+            <div class="type-switch">
+              <label><input type="radio" name="type" value="income" checked><span>+ Entrada</span></label>
+              <label><input type="radio" name="type" value="expense"><span>− Salida</span></label>
+            </div>
+            <label for="concept">Concepto</label>
+            <input id="concept" name="concept" required maxlength="60" placeholder="Ej. Venta de mostrador">
+            <label for="amount">Monto en MXN</label>
+            <div class="amount"><span aria-hidden="true">$</span><input id="amount" name="amount" type="number" inputmode="decimal" min="0.01" max="999999" step="0.01" required placeholder="0.00"></div>
+            <button class="button solid" type="submit">Registrar movimiento</button>
+          </fieldset>
+        </form>
+      </section>
+    </div>
+    <p id="feedback" class="feedback" role="status"></p>
+    <footer class="foot"><p>Datos de ejemplo guardados en este navegador.</p><button id="reset" type="button" class="link">Reiniciar demo</button></footer>
+  </main>
+  <dialog id="close-dialog" aria-labelledby="close-title">
+    <form id="close-form">
+      <h2 id="close-title">Corte de caja</h2>
+      <p>Efectivo esperado en este turno <strong id="closing-balance"></strong></p>
+      <label for="counted">Efectivo contado (MXN)</label>
+      <div class="amount"><span aria-hidden="true">$</span><input id="counted" name="counted" type="number" inputmode="decimal" min="0" max="999999999" step="0.01" required></div>
+      <p id="difference" class="notice" aria-live="polite"></p>
+      <div class="dialog-actions"><button id="cancel-close" type="button" class="button outline">Cancelar</button><button type="submit" class="button solid">Cerrar caja</button></div>
+    </form>
+  </dialog>
+  <dialog id="reset-dialog" aria-labelledby="reset-title">
+    <form id="reset-form">
+      <h2 id="reset-title">Reiniciar la demo</h2>
+      <p>Volverás al turno de ejemplo con sus movimientos originales.</p>
+      <div class="dialog-actions"><button id="cancel-reset" type="button" class="button outline">Cancelar</button><button type="submit" class="button solid">Reiniciar</button></div>
+    </form>
+  </dialog>
+</body>
+</html>

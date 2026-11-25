@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Sol de Patio. Simulador residencial de muestra con diseño de techo, sombras y comparación de escenarios.">
+  <meta name="theme-color" content="#c7ecf5">
+  <title>Sol de Patio | Simulador solar residencial</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#contenido">Saltar al contenido</a>
+  <header id="inicio"><div class="frame topline"><a href="../../index.html">Volver al portafolio</a><span>Simulador solar de muestra</span></div>
+    <div class="frame topnav"><a class="brand" href="#inicio"><span aria-hidden="true" class="sun"></span>Sol de Patio</a><a class="button ink" href="#simulador">Diseñar mi techo</a></div>
+  </header>
+  <main id="contenido">
+    <section class="hero frame" aria-labelledby="hero-title">
+      <div class="hero-copy"><p>Energía solar residencial</p><h1 id="hero-title">Del sol a<br>tu techo.</h1><p>Prueba cómo cambian los paneles que caben y la energía estimada al ajustar un techo de ejemplo.</p><a class="button yellow" href="#simulador">Probar el simulador</a></div>
+      <figure><img src="../../assets/solar.webp" alt="Casa blanca con una matriz de paneles solares sobre el techo" width="1536" height="1024" fetchpriority="high"></figure>
+    </section>
+
+    <section class="planner frame" id="simulador" aria-labelledby="planner-title">
+      <div class="section-title"><h2 id="planner-title">Diseña una instalación</h2><p>Ajusta el consumo y el techo. Luego marca los espacios que quedarían en sombra.</p></div>
+      <div class="planner-grid">
+        <form class="controls" id="roof-settings">
+          <h3>Datos de la casa</h3>
+          <div class="field range-field"><label for="use">Consumo mensual</label><output for="use" id="use-value">420 kWh</output><input id="use" type="range" min="120" max="900" step="10" value="420"><div class="range-endpoints" aria-hidden="true"><span>120 kWh</span><span>900 kWh</span></div></div>
+          <div class="field range-field"><label for="space">Superficie de techo</label><output for="space" id="space-value">28 m²</output><input id="space" type="range" min="10" max="44" step="2" value="28"><div class="range-endpoints" aria-hidden="true"><span>10 m²</span><span>44 m²</span></div></div>
+          <div class="field range-field"><label for="target">Cobertura deseada</label><output for="target" id="target-value">75 %</output><input id="target" type="range" min="40" max="100" step="5" value="75"><div class="range-endpoints" aria-hidden="true"><span>40 %</span><span>100 %</span></div></div>
+          <div class="field"><label for="bearing">Orientación</label><select id="bearing"><option value="south">Sur</option><option value="eastWest">Este y oeste</option></select></div>
+          <div class="field"><label for="panel">Tipo de panel</label><select id="panel"><option value="460">Estándar · 460 W</option><option value="575">Alta potencia · 575 W</option></select></div>
+        </form>
+
+        <div class="workspace">
+          <div class="roof">
+            <div class="roof-heading"><div><h3>Plano del techo</h3><p id="roof-hint">Selecciona una casilla para agregar o quitar sombra.</p></div><span class="compass" aria-hidden="true">N <span>↑</span></span></div>
+            <div class="roof-grid" id="roof-grid" role="group" aria-label="Casillas del techo" aria-describedby="roof-hint"></div>
+            <div class="roof-footer"><ul class="legend"><li><span class="legend-panel"></span>Panel</li><li><span class="legend-clear"></span>Libre</li><li><span class="legend-shade"></span>Sombra</li></ul><button class="text-button" id="clear-shade" type="button" disabled>Quitar sombras</button></div>
+          </div>
+          <section class="result" aria-labelledby="result-title">
+            <h3 id="result-title">Resultado de muestra</h3>
+            <div class="metrics"><div><strong id="panel-count">—</strong><span>Paneles</span></div><div><strong id="energy">—</strong><span>kWh al mes</span></div><div><strong id="coverage">—</strong><span>Del consumo</span></div></div>
+            <div class="coverage-track" aria-hidden="true"><span class="coverage-fill"></span><span class="target-marker"></span></div>
+            <p id="coverage-note" role="status"></p>
+            <div class="actions"><button type="button" id="save" class="button yellow">Guardar escenario</button><button type="button" id="download" class="button outline">Descargar resumen</button></div>
+            <p class="feedback" id="feedback" role="status"></p>
+          </section>
+        </div>
+      </div>
+      <noscript><p>Activa JavaScript para cambiar la distribución y comparar escenarios.</p></noscript>
+    </section>
+
+    <section class="compare" id="escenarios" aria-labelledby="compare-title"><div class="frame">
+      <div class="section-title"><h2 id="compare-title">Compara escenarios</h2><p>Guarda hasta dos para ver qué cambia al mover el techo, cambiar de panel o ajustar tu meta.</p></div>
+      <div id="scenarios" class="scenarios"></div>
+      <details><summary>Cómo funciona esta muestra</summary><p>El simulador usa una distribución simplificada y una producción hipotética por panel. Las sombras descartan casillas completas. La estimación sirve para probar la interfaz, con datos de ejemplo.</p></details>
+    </div></section>
+  </main>
+  <footer><div class="frame foot"><a class="brand" href="#inicio"><span aria-hidden="true" class="sun"></span>Sol de Patio</a><a href="../../index.html">Portafolio de Pedro Narváez</a></div></footer>
+</body>
+</html>

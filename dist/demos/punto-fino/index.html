@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#192790">
+  <meta name="description" content="Agenda de muestra de Punto Fino, una barbería con servicios, barberos y horarios para reservar.">
+  <title>Punto Fino | Barbería y agenda</title>
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header shell">
+    <a class="brand" href="./index.html" aria-label="Punto Fino, inicio"><span class="brand-mark" aria-hidden="true"></span>Punto Fino</a>
+    <nav aria-label="Navegación principal">
+      <a href="../../index.html">Portafolio</a>
+      <a class="nav-booking" href="#agenda">Agendar cita</a>
+    </nav>
+  </header>
+
+  <main id="contenido">
+    <section class="hero shell" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="overline">Barbería en Ciudad de México</p>
+        <h1 id="hero-title">Tu corte,<br>a tiempo.</h1>
+        <p>Elige tu servicio, encuentra un horario y deja tu cita lista en unos pasos.</p>
+        <a href="#agenda" class="primary-link">Ver horarios</a>
+      </div>
+      <figure class="hero-photo">
+        <img src="../../assets/barberia.webp" alt="Barbero cortando el pelo de un cliente junto a una ventana" width="1536" height="1024" fetchpriority="high">
+      </figure>
+    </section>
+
+    <section class="agenda shell" id="agenda" aria-labelledby="agenda-title">
+      <h2 id="agenda-title">Agenda tu cita.</h2>
+      <p class="demo-note">Agenda de muestra. Las citas se guardan en este navegador.</p>
+      <form id="booking-form" class="booking-layout">
+        <div class="booking-fields">
+          <fieldset class="service-fieldset">
+            <legend>Elige un servicio</legend>
+            <div class="service-list">
+              <label class="service-option">
+                <input type="radio" name="service" value="cut" data-duration="35" data-price="320" checked>
+                <span class="service-card"><span class="service-name">Corte clásico</span><span class="service-time">35 min</span><span class="service-price">$320 MXN</span></span>
+              </label>
+              <label class="service-option">
+                <input type="radio" name="service" value="beard" data-duration="25" data-price="220">
+                <span class="service-card"><span class="service-name">Arreglo de barba</span><span class="service-time">25 min</span><span class="service-price">$220 MXN</span></span>
+              </label>
+              <label class="service-option">
+                <input type="radio" name="service" value="both" data-duration="55" data-price="490">
+                <span class="service-card"><span class="service-name">Corte y barba</span><span class="service-time">55 min</span><span class="service-price">$490 MXN</span></span>
+              </label>
+            </div>
+          </fieldset>
+
+          <div class="appointment-fields">
+            <div>
+              <label for="barber">Barbero</label>
+              <select name="barber" id="barber">
+                <option value="nico">Nico</option>
+                <option value="leo">Leo</option>
+                <option value="dani">Dani</option>
+              </select>
+            </div>
+            <div>
+              <label for="date">Día de la cita</label>
+              <select name="date" id="date"></select>
+            </div>
+          </div>
+        </div>
+
+        <section class="schedule" aria-labelledby="time-title">
+          <h3 id="time-title">Horarios</h3>
+          <p id="schedule-caption"></p>
+          <fieldset class="slot-fieldset">
+            <legend class="sr-only">Hora de inicio</legend>
+            <div id="slots" class="slot-grid"></div>
+          </fieldset>
+          <div class="booking-summary">
+            <p id="selection-summary" role="status">Elige un horario disponible.</p>
+            <button class="confirm-button" type="submit" disabled>Confirmar cita</button>
+          </div>
+        </section>
+      </form>
+      <noscript><p>Activa JavaScript para consultar horarios y simular una cita.</p></noscript>
+
+      <section class="reservations" aria-labelledby="reservations-title">
+        <h3 id="reservations-title">Tus citas de prueba</h3>
+        <p id="reservation-message" class="reservation-message" role="status" tabindex="-1"></p>
+        <p id="no-reservations">Tus próximas citas aparecerán aquí.</p>
+        <ul id="reservations-list"></ul>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <a class="brand" href="./index.html" aria-label="Punto Fino, inicio"><span class="brand-mark" aria-hidden="true"></span>Punto Fino</a>
+      <a href="../../index.html">Volver al portafolio</a>
+    </div>
+  </footer>
+</body>
+</html>
