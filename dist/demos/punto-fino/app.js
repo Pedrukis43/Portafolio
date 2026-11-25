@@ -168,6 +168,7 @@ function renderReservations() {
   document.querySelector('#reservations-list').replaceChildren(...sorted.map(booking => {
     const item = document.createElement('li');
     item.className = 'reservation';
+    item.dataset.key = bookingKey(booking);
     const details = document.createElement('div');
     const title = document.createElement('strong');
     title.textContent = `${services.get(booking.service).name} con ${barbers.get(booking.barber)}`;
@@ -205,6 +206,8 @@ form.addEventListener('submit', event => {
     const persisted = saveReservations();
     renderSchedule();
     renderReservations();
+    // La cita nueva se «imprime» como un ticket.
+    document.querySelector(`[data-key="${CSS.escape(bookingKey(appointment))}"]`)?.classList.add('ticket-nuevo');
     const when = `${dayLabel.format(makeDay(appointment.day))} a las ${timeLabel(appointment.start)}`;
     notifyReservation(persisted ? `Cita de prueba confirmada para el ${when}.` : `Cita de prueba guardada en esta sesión para el ${when}.`);
   });

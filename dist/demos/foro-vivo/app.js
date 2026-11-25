@@ -331,6 +331,7 @@ function confirmOrder() {
   get('order-reference').textContent = `Folio de muestra FV-${String(receiptCount).padStart(4, '0')}`;
   get('order-review').hidden = true;
   get('order-confirmation').hidden = false;
+  dialog.classList.add('vendido');
   renderSeatPlan();
   renderTicket();
   dialogTitle.focus();
@@ -387,6 +388,7 @@ get('selected-seats').addEventListener('click', (event) => {
 reviewButton.addEventListener('click', reviewOrder);
 get('confirm-order').addEventListener('click', confirmOrder);
 dialog.addEventListener('close', () => {
+  dialog.classList.remove('vendido');
   if (dialog.returnValue === 'cartelera') get('program-title').focus();
   else if (confirmed) seatGrid.querySelector('[tabindex="0"]')?.focus();
   else reviewButton.focus();

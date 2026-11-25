@@ -8,7 +8,9 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./grano.css">
+  <link rel="stylesheet" href="../movimiento.css">
+    <script src="../movimiento.js"></script>
+    <link rel="stylesheet" href="./grano.css">
   <script src="./grano.js" defer></script>
 </head>
 <body>
@@ -35,7 +37,7 @@
           <div><h2 id="card-title">Tu tarjeta</h2><p>Una compra de café equivale a un sello.</p></div>
           <strong id="stamp-count" class="count">6 <span>/ 10</span></strong>
         </header>
-        <div id="stamps" class="stamps" aria-hidden="true"></div>
+        <div id="stamps" class="stamps" aria-hidden="true" data-mv-sin></div>
         <div class="progress-row">
           <progress id="progress" value="6" max="10" aria-label="Sellos acumulados"></progress>
           <p id="progress-caption">Te faltan 4 sellos.</p>

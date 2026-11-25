@@ -59,3 +59,16 @@ footer { padding-block: 1.4rem; border-top: 1px solid #d2d1c6; color: var(--mute
 }
 @media (max-width: 420px) { .tiles { grid-template-columns: 1fr; } }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+/* Ruta con un auto que cruza al enviar la solicitud; los mosaicos elegidos se hunden y rebotan. */
+.ruta { position: relative; height: 28px; margin-bottom: .7rem; border-bottom: 2px dashed #70725e; overflow: hidden; }
+.carro { position: absolute; left: 0; bottom: 2px; width: 44px; fill: var(--accent); }
+@media (prefers-reduced-motion: no-preference) {
+  .ruta.en-ruta .carro { animation: manejar 1.4s cubic-bezier(.55, 0, .25, 1) both; }
+  .ruta.en-ruta .carro circle { animation: rueda .25s linear 6; transform-box: fill-box; transform-origin: center; }
+  @keyframes manejar { 0% { left: 0; } 70% { left: calc(100% - 40px); } 82% { left: calc(100% - 52px); } 100% { left: calc(100% - 46px); } }
+  @keyframes rueda { 50% { transform: scaleY(.85); } }
+  .tiles input:checked + span, .extras input:checked ~ span { animation: elegir .4s cubic-bezier(.2, .7, .25, 1.5); }
+  @keyframes elegir { 0% { transform: scale(.94); } 60% { transform: scale(1.04); } 100% { transform: none; } }
+  .tiles span, .extras span { display: inline-block; }
+}

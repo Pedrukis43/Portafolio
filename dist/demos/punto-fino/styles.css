@@ -131,3 +131,15 @@ footer { background: var(--blue); color: var(--white); }
 }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* Poste de barbería que gira en la foto, horario elegido que rebota y cita nueva que sale impresa como ticket. */
+.poste { position: absolute; z-index: 1; top: 0; bottom: 0; left: clamp(.75rem, 2vw, 1.25rem); width: 14px; border-radius: 0 0 8px 8px; background: repeating-linear-gradient(135deg, #f4f1ea 0 10px, #c8323c 10px 20px, #f4f1ea 20px 30px, var(--deep) 30px 40px); background-size: 100% 57px; box-shadow: 0 0 0 2px rgb(255 255 255 / 55%), 0 8px 20px rgb(0 0 0 / 30%); opacity: .92; }
+@media (prefers-reduced-motion: no-preference) {
+  .poste { animation: poste 1.4s linear infinite; }
+  @keyframes poste { to { background-position: 0 57px; } }
+  .slot[aria-pressed="true"] { animation: horario .45s cubic-bezier(.2, .7, .25, 1.5); }
+  @keyframes horario { 0% { transform: scale(.9); } 60% { transform: scale(1.07); } 100% { transform: none; } }
+  .reservation.ticket-nuevo { position: relative; padding-inline: .9rem; border: 1px dashed var(--blue); border-radius: 6px; background: #fffdf4; animation: imprimir .9s cubic-bezier(.3, .7, .2, 1) both, ticket-luz 2.4s .9s ease-out; }
+  @keyframes imprimir { from { clip-path: inset(0 0 100% 0); transform: translateY(-14px); } to { clip-path: inset(0 0 0 0); transform: none; } }
+  @keyframes ticket-luz { from { box-shadow: 0 0 0 4px rgb(241 218 139 / 90%); } to { box-shadow: 0 0 0 4px rgb(241 218 139 / 0%); } }
+}

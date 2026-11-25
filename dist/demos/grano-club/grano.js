@@ -63,6 +63,72 @@ function render(animateStamp = false) {
     return cell;
   });
   byId('stamps').replaceChildren(...stamps);
+  document.querySelector('.reward').classList.toggle('lista', remaining === 0);
+}
+
+const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+
+// Confeti de granos y papelitos desde la tarjeta al juntar los 10 sellos.
+function confetti() {
+  if (!motion.matches) return;
+  const canvas = document.createElement('canvas');
+  canvas.className = 'confeti';
+  canvas.setAttribute('aria-hidden', 'true');
+  document.body.append(canvas);
+  const ratio = Math.min(devicePixelRatio, 2);
+  canvas.width = innerWidth * ratio;
+  canvas.height = innerHeight * ratio;
+  const ctx = canvas.getContext('2d');
+  ctx.scale(ratio, ratio);
+  const origin = byId('stamps').getBoundingClientRect();
+  const colors = ['#4e2c9e', '#8a76ad', '#d6c8ee', '#f0a35e', '#6b3f22', '#fffcf5'];
+  const pieces = Array.from({ length: 140 }, () => {
+    const angle = -Math.PI / 2 + (Math.random() - 0.5) * 2.2;
+    const speed = 380 + Math.random() * 520;
+    return {
+      x: origin.left + origin.width * Math.random(),
+      y: origin.top + origin.height / 2,
+      vx: Math.cos(angle) * speed,
+      vy: Math.sin(angle) * speed,
+      spin: (Math.random() - 0.5) * 12,
+      turn: Math.random() * Math.PI,
+      w: 6 + Math.random() * 6,
+      h: 4 + Math.random() * 8,
+      bean: Math.random() < 0.3,
+      color: colors[Math.floor(Math.random() * colors.length)],
+    };
+  });
+  const start = performance.now();
+  let last = start;
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    const t = (now - start) / 1000;
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+    ctx.globalAlpha = Math.max(0, Math.min(1, 2.6 - t));
+    for (const p of pieces) {
+      p.vy += 980 * dt;
+      p.vx *= 0.985;
+      p.x += p.vx * dt;
+      p.y += p.vy * dt;
+      p.turn += p.spin * dt;
+      ctx.save();
+      ctx.translate(p.x, p.y);
+      ctx.rotate(p.turn);
+      ctx.fillStyle = p.bean ? '#6b3f22' : p.color;
+      if (p.bean) {
+        ctx.beginPath();
+        ctx.ellipse(0, 0, 4, 6, 0, 0, Math.PI * 2);
+        ctx.fill();
+      } else {
+        ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h * Math.abs(Math.cos(p.turn * 2)));
+      }
+      ctx.restore();
+    }
+    if (t < 2.6) requestAnimationFrame(frame);
+    else canvas.remove();
+  }
+  requestAnimationFrame(frame);
 }
 
 add.addEventListener('click', () => {
@@ -70,7 +136,12 @@ add.addEventListener('click', () => {
   card.stamps += 1;
   persist();
   render(true);
+  const cardBox = document.querySelector('.card');
+  cardBox.classList.remove('golpe');
+  void cardBox.offsetWidth;
+  cardBox.classList.add('golpe');
   if (card.stamps === goal) {
+    confetti();
     report('Juntaste los 10 sellos. Ya puedes canjear un café.');
     redeem.focus();
   } else {

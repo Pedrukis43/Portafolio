@@ -76,4 +76,13 @@ select { background: white; border: 1px solid var(--line); border-radius: 6px; p
   html { scroll-behavior: smooth; }
   .product:not([hidden]) { animation: show-product 250ms ease-out; }
   @keyframes show-product { from { opacity: .4; translate: 0 4px; } }
+
+  /* El carrito entra deslizándose y sus líneas aparecen; la foto que vuela va sobre todo. */
+  .fly { position: fixed; z-index: 30; object-fit: cover; border-radius: 16px; pointer-events: none; box-shadow: 0 18px 40px -16px rgb(30 25 52 / 50%); }
+  #cart[open] { animation: carrito .45s cubic-bezier(.2, .7, .2, 1); }
+  #cart[open]::backdrop { animation: velo .45s ease; }
+  @keyframes carrito { from { opacity: 0; transform: translateX(60px) scale(.97); } }
+  @keyframes velo { from { opacity: 0; } }
+  #cart-count { display: inline-block; }
+  ::view-transition-group(*) { animation-duration: .4s; animation-timing-function: cubic-bezier(.2, .7, .2, 1); }
 }

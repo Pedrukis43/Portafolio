@@ -120,3 +120,68 @@ form.addEventListener('submit', event => {
   result.hidden = false;
   result.focus();
 });
+
+// —— Brasas: chispas que suben sobre la foto de la portada. Solo con movimiento permitido. ——
+(() => {
+  if (!matchMedia('(prefers-reduced-motion: no-preference)').matches) return;
+  const hero = document.querySelector('.hero');
+  const canvas = document.createElement('canvas');
+  canvas.className = 'embers';
+  canvas.setAttribute('aria-hidden', 'true');
+  hero.querySelector('.hero-picture').after(canvas);
+  const ctx = canvas.getContext('2d');
+  const sparks = [];
+  let width = 0;
+  let height = 0;
+  let visible = true;
+  let last = performance.now();
+
+  const spawn = (anywhere) => ({
+    x: Math.random() * width,
+    y: anywhere ? Math.random() * height : height + 10,
+    r: 1.4 + Math.random() * 2.4,
+    vy: 18 + Math.random() * 42,
+    sway: Math.random() * Math.PI * 2,
+    life: 0.5 + Math.random() * 0.5,
+  });
+  function resize() {
+    const ratio = Math.min(devicePixelRatio, 2);
+    width = canvas.clientWidth;
+    height = canvas.clientHeight;
+    canvas.width = width * ratio;
+    canvas.height = height * ratio;
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    sparks.length = 0;
+    const count = Math.round(Math.min(70, width / 14));
+    for (let i = 0; i < count; i++) sparks.push(spawn(true));
+  }
+  function frame(now) {
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    if (visible) {
+      ctx.clearRect(0, 0, width, height);
+      ctx.globalCompositeOperation = 'lighter';
+      for (const s of sparks) {
+        s.y -= s.vy * dt;
+        s.sway += dt * 1.6;
+        s.x += Math.sin(s.sway) * 12 * dt;
+        const fade = Math.min(1, 0.25 + Math.max(0, s.y / height)) * s.life;
+        const flicker = 0.75 + Math.random() * 0.25;
+        const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.r * 4);
+        glow.addColorStop(0, `rgba(255, 214, 150, ${fade * flicker})`);
+        glow.addColorStop(0.15, `rgba(255, 170, 80, ${fade * flicker * 0.9})`);
+        glow.addColorStop(0.35, `rgba(240, 112, 40, ${fade * 0.55})`);
+        glow.addColorStop(1, 'rgba(200, 60, 20, 0)');
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r * 4, 0, Math.PI * 2);
+        ctx.fill();
+        if (s.y < -10) Object.assign(s, spawn(false));
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  new ResizeObserver(resize).observe(canvas);
+  new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; }).observe(hero);
+  requestAnimationFrame(frame);
+})();

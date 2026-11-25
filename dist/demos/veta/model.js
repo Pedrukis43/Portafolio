@@ -405,7 +405,23 @@
       });
     }
 
+    // Giro de vitrina: el escritorio se balancea solo hasta que el visitante lo toca.
+    let idle = 0;
+    const idleStart = performance.now();
+    function stopIdle() {
+      cancelAnimationFrame(idle);
+      idle = -1;
+    }
+    function swing(time) {
+      if (idle === -1) return;
+      yaw = views.orbit.yaw + Math.sin((time - idleStart) / 2600) * 0.32;
+      scheduleDraw();
+      idle = requestAnimationFrame(swing);
+    }
+    if (!reduced.matches) idle = requestAnimationFrame(swing);
+
     function rotate(x, y) {
+      stopIdle();
       cancelAnimationFrame(transition);
       yaw += x;
       pitch = Math.max(-0.13, Math.min(1.38, pitch + y));
@@ -414,6 +430,7 @@
     }
 
     function preset(name) {
+      stopIdle();
       cancelAnimationFrame(transition);
       const target = views[name];
       const tau = Math.PI * 2;
@@ -429,7 +446,7 @@
       const fromPitch = pitch;
       const deltaYaw = ((target.yaw - fromYaw + Math.PI) % tau + tau) % tau - Math.PI;
       const step = (time) => {
-        const progress = Math.min(1, (time - started) / 260);
+        const progress = Math.min(1, (time - started) / 620);
         const eased = 1 - (1 - progress) ** 3;
         yaw = fromYaw + deltaYaw * eased;
         pitch = fromPitch + (target.pitch - fromPitch) * eased;
@@ -441,6 +458,7 @@
 
     container.addEventListener('pointerdown', (event) => {
       if (!event.isPrimary || event.button !== 0) return;
+      stopIdle();
       pointer = { id: event.pointerId, x: event.clientX, y: event.clientY };
       container.setPointerCapture(event.pointerId);
     });
@@ -466,11 +484,19 @@
     const observer = new ResizeObserver(scheduleDraw);
     observer.observe(container);
 
+    let built = false;
     return {
       model(config) {
         desk = buildDesk(config);
         renderer.model(desk);
         scheduleDraw();
+        // Cada cambio de acabado o medida deja un destello sobre el modelo.
+        if (built && !reduced.matches) {
+          container.classList.remove('cambio');
+          void container.offsetWidth;
+          container.classList.add('cambio');
+        }
+        built = true;
       },
       preset,
     };

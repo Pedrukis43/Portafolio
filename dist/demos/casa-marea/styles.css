@@ -129,4 +129,16 @@ dialog form { margin-top: 1rem; }
   .extras strong { grid-column: 2; }
 }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+
+/* Luz que se filtra entre palmas sobre la portada; cada espacio del recorrido se abre como una cortina y respira despacio. */
+@media (prefers-reduced-motion: no-preference) {
+  .hero-art::before { content: ''; position: absolute; z-index: 1; inset: -10%; pointer-events: none; mix-blend-mode: soft-light;
+    background: radial-gradient(18% 22% at 22% 30%, rgb(255 244 214 / 55%), transparent 70%), radial-gradient(14% 18% at 64% 22%, rgb(255 236 200 / 45%), transparent 70%), radial-gradient(22% 16% at 80% 62%, rgb(255 244 214 / 40%), transparent 70%), radial-gradient(12% 14% at 40% 70%, rgb(255 230 190 / 35%), transparent 70%);
+    animation: palmas 11s ease-in-out infinite alternate; }
+  @keyframes palmas { 0% { transform: translate(0, 0) rotate(0deg); opacity: .7; } 50% { opacity: 1; } 100% { transform: translate(3%, -2%) rotate(2deg); opacity: .8; } }
+  .tour-stage img.is-current { animation: cortina 1s cubic-bezier(.65, 0, .25, 1), respirar 14s 1s ease-in-out infinite alternate; }
+  @keyframes cortina { from { clip-path: inset(0 0 0 100%); scale: 1.08; } to { clip-path: inset(0); scale: 1; } }
+  @keyframes respirar { to { scale: 1.06; } }
+  .tour-stage p { transition: opacity .3s ease; }
+}
 @media (prefers-reduced-motion: reduce) { .tour-stage img { transition: none; } .hero-art img, .hero-copy { transform: none; } }

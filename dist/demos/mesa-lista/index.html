@@ -6,7 +6,9 @@
   <meta name="description" content="Prueba el flujo entre una mesa y la cocina con pedidos, estados y avisos de servicio.">
   <meta name="theme-color" content="#29211f">
   <title>Mesa Lista | Pedidos en mesa y cocina</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../movimiento.css">
+    <script src="../movimiento.js"></script>
+    <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -48,14 +50,14 @@
         </section>
         <section id="guest-orders-section" aria-labelledby="guest-orders-title" hidden>
           <h2 id="guest-orders-title">Tus pedidos</h2>
-          <div id="guest-orders" class="queue"></div>
+          <div data-mv-sin id="guest-orders" class="queue"></div>
         </section>
       </div>
 
       <aside class="ticket" aria-label="Pedido y servicio">
         <section class="ticket-main" aria-labelledby="cart-title">
           <h2 id="cart-title" tabindex="-1">Tu pedido</h2>
-          <div id="cart"></div>
+          <div data-mv-sin id="cart"></div>
           <div class="total"><span>Total</span><strong id="cart-total">$0</strong></div>
           <button class="primary" id="send-order" type="button" disabled>Enviar a cocina</button>
         </section>
@@ -66,7 +68,7 @@
             <button type="button" class="secondary" data-request="mesero">Llamar al mesero</button>
             <button type="button" class="secondary" data-request="cuenta">Pedir la cuenta</button>
           </div>
-          <div id="guest-requests"></div>
+          <div data-mv-sin id="guest-requests"></div>
         </section>
       </aside>
       <a id="cart-jump" class="primary cart-jump" href="#cart-title" hidden>
@@ -80,11 +82,11 @@
           <h2 id="kitchen-title">Pedidos de cocina</h2>
           <span data-table>Mesa 4</span>
         </div>
-        <div id="staff-orders" class="queue"></div>
+        <div data-mv-sin id="staff-orders" class="queue"></div>
       </section>
       <section class="ticket service-queue" aria-labelledby="requests-title">
         <h2 id="requests-title">Avisos de mesa</h2>
-        <div id="staff-requests" class="queue"></div>
+        <div data-mv-sin id="staff-requests" class="queue"></div>
       </section>
     </div>
 

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Demo de un taller automotriz con cotizador interactivo de mantenimiento.">
     <title>Kilómetro 40 | Taller automotriz</title>
+    <link rel="stylesheet" href="../movimiento.css">
+    <script src="../movimiento.js"></script>
     <link rel="stylesheet" href="styles.css">
     <script src="app.js" defer></script>
   </head>
@@ -49,6 +51,7 @@
             <p class="small">Cambio de aceite y filtro, inspección de niveles y presión de llantas.</p>
             <ul id="extra-lines"></ul>
             <div class="total"><span>Total estimado</span><output id="estimate-total" aria-live="polite">$990 MXN</output></div>
+            <div class="ruta" aria-hidden="true"><svg class="carro" viewBox="0 0 48 24"><path d="M4 16v-4l5-6h18l7 6h8a3 3 0 0 1 3 3v1z"/><circle cx="12" cy="18" r="4"/><circle cx="36" cy="18" r="4"/></svg></div>
             <button class="button" type="submit">Simular solicitud</button>
             <p class="notice" id="estimate-result" role="status"></p>
           </div>

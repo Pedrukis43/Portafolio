@@ -367,3 +367,19 @@ body:has(dialog[open]) { overflow: hidden; }
     }
   }
 }
+
+/* Corazón que late con un anillo al guardar, foto que se acerca al pasar el puntero y fichas que se abren con suavidad. */
+@media (prefers-reduced-motion: no-preference) {
+  .card-image { overflow: hidden; }
+  .card-image img { transition: scale .7s cubic-bezier(.2, .7, .2, 1); }
+  @media (hover: hover) { article:hover .card-image img { scale: 1.06; } }
+  .favorite-button[aria-pressed="true"] { animation: latido .5s cubic-bezier(.2, .7, .25, 1.5); }
+  .favorite-button[aria-pressed="true"]::after { content: ''; position: absolute; inset: -6px; border: 2px solid var(--pine); border-radius: inherit; animation: anillo .6s ease-out both; pointer-events: none; }
+  @keyframes latido { 0% { scale: .75; } 45% { scale: 1.25; } 100% { scale: 1; } }
+  @keyframes anillo { from { opacity: .9; scale: .8; } to { opacity: 0; scale: 1.6; } }
+  #favorite-count { display: inline-block; transition: scale .2s; }
+  dialog[open] { animation: abrir-ficha .45s cubic-bezier(.2, .7, .2, 1); }
+  dialog[open]::backdrop { animation: velo-ficha .45s ease; }
+  @keyframes abrir-ficha { from { opacity: 0; transform: translateY(28px) scale(.97); } }
+  @keyframes velo-ficha { from { opacity: 0; } }
+}

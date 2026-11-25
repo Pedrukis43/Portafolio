@@ -329,3 +329,19 @@ $('#copy').addEventListener('click', async () => {
 });
 
 updateFavorites();
+
+// Las piezas del archivo se revelan como tinta que se extiende al entrar en pantalla.
+if (matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+  const inkObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target, isIntersecting }, index) => {
+      if (!isIntersecting) return;
+      target.style.setProperty('--ink-delay', `${index * 90}ms`);
+      target.classList.add('entintada');
+      inkObserver.unobserve(target);
+    });
+  }, { rootMargin: '0px 0px -10% 0px' });
+  document.querySelectorAll('.work').forEach((work) => {
+    work.classList.add('por-entintar');
+    inkObserver.observe(work);
+  });
+}

@@ -194,4 +194,17 @@ html:has(.work-dialog[open]) { overflow: hidden; }
   .work-open img { transition: transform .32s ease-out; }
   .work-open:hover img { transform: scale(1.05); }
   @keyframes framed-entry { from { transform: scale(1.075); opacity: .7; } }
+
+  /* Tinta: cada foto se abre desde una gota irregular y «pulso.» se subraya con un trazo rojo que late. */
+  .work.por-entintar:not(.entintada) .work-visual { clip-path: circle(0% at 38% 62%); }
+  .work.entintada .work-visual { animation: tinta 1.3s var(--ink-delay, 0ms) cubic-bezier(.5, 0, .2, 1) both; }
+  @keyframes tinta {
+    0% { clip-path: circle(0% at 38% 62%); filter: contrast(1.6) brightness(.6); }
+    45% { clip-path: circle(38% at 44% 58%); }
+    100% { clip-path: circle(150% at 50% 50%); filter: none; }
+  }
+  .hero h1 span:last-child { position: relative; display: inline-block; }
+  .hero h1 span:last-child::after { content: ''; position: absolute; left: 0; right: .1em; bottom: .02em; height: .07em; border-radius: 1em; background: var(--red); transform-origin: left; animation: trazo 1s 1s cubic-bezier(.6, 0, .2, 1) both, latido-tinta 2.6s 2.2s ease-in-out infinite; }
+  @keyframes trazo { from { transform: scaleX(0); } }
+  @keyframes latido-tinta { 0%, 60%, 100% { transform: scaleY(1); } 70% { transform: scaleY(1.9); } 80% { transform: scaleY(1); } 88% { transform: scaleY(1.5); } }
 }

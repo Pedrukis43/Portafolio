@@ -46,6 +46,27 @@ function report(text) {
   byId('feedback').textContent = text;
 }
 
+const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+
+// Los importes corren desde su valor anterior (desde cero al abrir la página) hasta el nuevo.
+function countMoney(id, cents) {
+  const element = byId(id);
+  const from = Number(element.dataset.cents ?? 0);
+  element.dataset.cents = cents;
+  cancelAnimationFrame(element.frame);
+  if (!motion.matches || from === cents) {
+    element.textContent = format(cents);
+    return;
+  }
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / 900);
+    element.textContent = format(Math.round(from + (cents - from) * (1 - (1 - t) ** 4)));
+    if (t < 1) element.frame = requestAnimationFrame(step);
+  };
+  element.frame = requestAnimationFrame(step);
+}
+
 function render() {
   const { income, expenses, balance } = totals();
   const closed = shift.counted !== null;
@@ -53,10 +74,10 @@ function render() {
   const incomeShare = income + expenses === 0 ? 0 : Math.round(income * 100 / (income + expenses));
   const expenseShare = expenses === 0 ? 0 : 100 - incomeShare;
 
-  byId('balance').textContent = format(balance);
-  byId('opening').textContent = format(opening);
-  byId('income').textContent = format(income);
-  byId('expenses').textContent = format(expenses);
+  countMoney('balance', balance);
+  countMoney('opening', opening);
+  countMoney('income', income);
+  countMoney('expenses', expenses);
   byId('transaction-count').textContent = count === 1 ? '1 movimiento' : count + ' movimientos';
   byId('income-percent').textContent = incomeShare + ' %';
   byId('expense-percent').textContent = expenseShare + ' %';

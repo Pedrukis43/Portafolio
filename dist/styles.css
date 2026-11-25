@@ -206,6 +206,27 @@ html:has(.case-dialog[open]) { overflow: hidden; }
     from { opacity: 0; translate: 0 .2em; }
     to { opacity: 1; translate: 0 0; }
   }
+
+  /* Portada: el resto del texto sigue al título y la foto se acerca despacio. */
+  .hero-label, .hero-description, .hero .button-primary { animation: reveal-line 700ms both ease-out; }
+  .hero-label { animation-delay: 40ms; }
+  .hero-description { animation-delay: 260ms; }
+  .hero .button-primary { animation-delay: 380ms; }
+  .hero-visual { animation: hero-in 1.6s both cubic-bezier(.2, .7, .2, 1); }
+  @keyframes hero-in { from { opacity: 0; scale: 1.06; } }
+
+  /* Tarjetas: entran escalonadas al bajar y se elevan al pasar el puntero. */
+  .js-motion .project:not(.is-in) { opacity: 0; translate: 0 40px; }
+  .js-motion .project { transition: opacity .8s cubic-bezier(.2, .7, .2, 1) var(--delay, 0ms), translate .8s cubic-bezier(.2, .7, .2, 1) var(--delay, 0ms), box-shadow .35s ease; }
+  @media (hover: hover) {
+    .js-motion .project.is-in:hover { translate: 0 -6px; box-shadow: 0 22px 44px -24px rgb(25 29 53 / 45%); transition-delay: 0ms; }
+  }
+
+  /* Vista previa en vivo de la demo dentro de la portada de la tarjeta. */
+  .project-cover { position: relative; }
+  .project-preview { position: absolute; top: 0; left: 0; width: 1280px; height: 766px; border: 0; transform-origin: 0 0; pointer-events: none; opacity: 0; transition: opacity .45s ease; background: #fff; }
+  .project-preview.is-ready { opacity: 1; }
+  ::view-transition-group(*) { animation-duration: .45s; animation-timing-function: cubic-bezier(.2, .7, .2, 1); }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -120,6 +120,39 @@ function renderRequests() {
   }
 }
 
+const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+const seenStages = new Map();
+
+// Cada estado que cambia (Recibido → En preparación → Listo) da un salto para que se note.
+function markChanges() {
+  for (const order of state.orders) {
+    const before = seenStages.get(order.number);
+    seenStages.set(order.number, order.stage);
+    if (before === undefined || before === order.stage) continue;
+    for (const badge of document.querySelectorAll(`[data-order="${order.number}"] .status`)) badge.classList.add('cambio');
+  }
+}
+
+// La comanda sale del botón y vuela hasta la vista de cocina.
+function sendTicket() {
+  if (!motion.matches) return;
+  const from = send.getBoundingClientRect();
+  const target = document.querySelector('[data-view="cocina"]')?.getBoundingClientRect();
+  if (!target) return;
+  const ticket = document.createElement('div');
+  ticket.className = 'comanda';
+  ticket.setAttribute('aria-hidden', 'true');
+  Object.assign(ticket.style, { left: `${from.left + from.width / 2 - 22}px`, top: `${from.top - 10}px` });
+  document.body.append(ticket);
+  const dx = target.left + target.width / 2 - (from.left + from.width / 2);
+  const dy = target.top + target.height / 2 - from.top;
+  ticket.animate([
+    { transform: 'translate(0, 0) rotate(0) scale(1)', opacity: 0 },
+    { transform: 'translate(0, -40px) rotate(-8deg) scale(1.1)', opacity: 1, offset: 0.2 },
+    { transform: `translate(${dx}px, ${dy}px) rotate(12deg) scale(.35)`, opacity: 0.2 },
+  ], { duration: 900, easing: 'cubic-bezier(.5, 0, .3, 1)' }).finished.then(() => ticket.remove());
+}
+
 function render() {
   const items = quantities(state.cart);
   for (const dish of dishes) {
@@ -141,6 +174,7 @@ function render() {
   staffOrders.innerHTML = state.orders.length ? state.orders.map(order => renderOrder(order, true)).join('')
     : '<p class="empty">Los pedidos de esta mesa aparecerán aquí.</p>';
   renderRequests();
+  markChanges();
 }
 
 function selectView(view) {
@@ -193,7 +227,12 @@ send.addEventListener('click', async () => {
     current.cart = {};
     return `Pedido ${number} enviado a cocina.`;
   });
-  if (number) guestOrders.querySelector(`[data-order="${number}"]`)?.focus();
+  if (number) {
+    sendTicket();
+    const placed = guestOrders.querySelector(`[data-order="${number}"]`);
+    placed?.classList.add('nuevo');
+    placed?.focus();
+  }
 });
 
 for (const button of requestButtons) {

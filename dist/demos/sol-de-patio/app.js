@@ -14,6 +14,7 @@ const cells = Array.from({ length: tileCount }, (_, index) => {
   cell.className = 'cell';
   cell.dataset.index = index;
   cell.textContent = index + 1;
+  cell.style.setProperty('--i', index);
   grid.append(cell);
   return cell;
 });
@@ -44,6 +45,27 @@ function estimate() {
   return { ...data, capacity, installed, count, energy, percentage, needed, shadows: capacity - spaces.length };
 }
 
+const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+
+// Las cifras del resultado corren hasta su nuevo valor en lugar de cambiar de golpe.
+function count(element, value, suffix = '') {
+  const from = Number(element.dataset.value ?? value);
+  element.dataset.value = value;
+  cancelAnimationFrame(element.frame);
+  if (!motion.matches || from === value) {
+    element.textContent = value + suffix;
+    return;
+  }
+  const start = performance.now();
+  const step = (now) => {
+    const t = Math.min(1, (now - start) / 550);
+    const eased = 1 - (1 - t) ** 3;
+    element.textContent = Math.round(from + (value - from) * eased) + suffix;
+    if (t < 1) element.frame = requestAnimationFrame(step);
+  };
+  element.frame = requestAnimationFrame(step);
+}
+
 function render() {
   const data = estimate();
   document.querySelector('#use-value').value = `${data.use} kWh`;
@@ -59,9 +81,9 @@ function render() {
     cell.setAttribute('aria-pressed', String(state === 'shade'));
   }
   clearShade.disabled = shade.size === 0;
-  document.querySelector('#panel-count').textContent = data.count;
-  document.querySelector('#energy').textContent = data.energy;
-  document.querySelector('#coverage').textContent = `${data.percentage} %`;
+  count(document.querySelector('#panel-count'), data.count);
+  count(document.querySelector('#energy'), data.energy);
+  count(document.querySelector('#coverage'), data.percentage, ' %');
   result.style.setProperty('--coverage', `${Math.min(data.percentage, 100)}%`);
   result.style.setProperty('--target', `${data.target}%`);
   const missing = data.needed - data.count;

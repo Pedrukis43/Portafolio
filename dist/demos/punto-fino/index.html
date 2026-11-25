@@ -6,7 +6,9 @@
   <meta name="theme-color" content="#192790">
   <meta name="description" content="Agenda de muestra de Punto Fino, una barbería con servicios, barberos y horarios para reservar.">
   <title>Punto Fino | Barbería y agenda</title>
-  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="../movimiento.css">
+    <script src="../movimiento.js"></script>
+    <link rel="stylesheet" href="./styles.css">
   <script src="./app.js" defer></script>
 </head>
 <body>
@@ -28,6 +30,7 @@
         <a href="#agenda" class="primary-link">Ver horarios</a>
       </div>
       <figure class="hero-photo">
+        <span class="poste" aria-hidden="true"></span>
         <img src="../../assets/barberia.webp" alt="Barbero cortando el pelo de un cliente junto a una ventana" width="1536" height="1024" fetchpriority="high">
       </figure>
     </section>
@@ -90,7 +93,7 @@
         <h3 id="reservations-title">Tus citas de prueba</h3>
         <p id="reservation-message" class="reservation-message" role="status" tabindex="-1"></p>
         <p id="no-reservations">Tus próximas citas aparecerán aquí.</p>
-        <ul id="reservations-list"></ul>
+        <ul id="reservations-list" data-mv-sin></ul>
       </section>
     </section>
   </main>

@@ -6,7 +6,9 @@
   <meta name="description" content="Sol de Patio. Simulador residencial de muestra con diseño de techo, sombras y comparación de escenarios.">
   <meta name="theme-color" content="#c7ecf5">
   <title>Sol de Patio | Simulador solar residencial</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="../movimiento.css">
+    <script src="../movimiento.js"></script>
+    <link rel="stylesheet" href="styles.css">
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -17,7 +19,7 @@
   <main id="contenido">
     <section class="hero frame" aria-labelledby="hero-title">
       <div class="hero-copy"><p>Energía solar residencial</p><h1 id="hero-title">Del sol a<br>tu techo.</h1><p>Prueba cómo cambian los paneles que caben y la energía estimada al ajustar un techo de ejemplo.</p><a class="button yellow" href="#simulador">Probar el simulador</a></div>
-      <figure><img src="../../assets/solar.webp" alt="Casa blanca con una matriz de paneles solares sobre el techo" width="1536" height="1024" fetchpriority="high"></figure>
+      <figure><span class="hero-sun" aria-hidden="true"><span></span></span><span class="hero-shine" aria-hidden="true"></span><img src="../../assets/solar.webp" alt="Casa blanca con una matriz de paneles solares sobre el techo" width="1536" height="1024" fetchpriority="high"></figure>
     </section>
 
     <section class="planner frame" id="simulador" aria-labelledby="planner-title">

@@ -207,4 +207,21 @@ html:has(.order-dialog[open]) { overflow: hidden; }
     .hero-art img { animation: hero-drift linear both; animation-timeline: view(); animation-range: exit 0% exit 70%; }
   }
   @keyframes hero-drift { from { transform: scale(1.015); } to { transform: translateY(4%) scale(1.12); } }
+
+  /* Luces de escenario que barren el plano, asiento que se enciende y boleto que se voltea al comprar. */
+  .stage { position: relative; isolation: isolate; }
+  .stage::before, .stage::after { content: ''; position: absolute; z-index: -1; top: 0; width: 46%; height: 190px; pointer-events: none; transform-origin: 50% 0; filter: blur(6px); mix-blend-mode: screen; }
+  .stage::before { left: 6%; background: linear-gradient(180deg, rgb(255 122 102 / 42%), transparent 85%); clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%); animation: foco-a 6s ease-in-out infinite alternate; }
+  .stage::after { right: 6%; background: linear-gradient(180deg, rgb(214 255 92 / 30%), transparent 85%); clip-path: polygon(44% 0, 56% 0, 100% 100%, 0 100%); animation: foco-b 7s ease-in-out infinite alternate; }
+  @keyframes foco-a { from { transform: rotate(-24deg); } to { transform: rotate(18deg); } }
+  @keyframes foco-b { from { transform: rotate(22deg); } to { transform: rotate(-20deg); } }
+  .seat-plan { position: relative; overflow: hidden; }
+  .seat[aria-pressed='true'] { animation: asiento .5s cubic-bezier(.2, .7, .25, 1.4); box-shadow: 0 0 18px -2px rgb(255 122 102 / 70%); }
+  @keyframes asiento { 0% { transform: scale(.7); box-shadow: 0 0 0 0 rgb(255 122 102 / 90%); } 60% { transform: scale(1.14); } 100% { transform: none; } }
+  .order-dialog[open] { animation: entrada-boleto .45s cubic-bezier(.2, .7, .2, 1); }
+  .order-dialog.vendido { overflow-x: hidden; animation: voltear .8s cubic-bezier(.3, .7, .2, 1); }
+  .order-dialog.vendido .order-reference { animation: folio .6s .55s cubic-bezier(.2, .7, .25, 1.4) both; }
+  @keyframes entrada-boleto { from { opacity: 0; transform: translateY(24px) scale(.96); } }
+  @keyframes voltear { 0% { transform: perspective(900px) rotateY(0); } 50% { transform: perspective(900px) rotateY(90deg); } 100% { transform: perspective(900px) rotateY(0); } }
+  @keyframes folio { from { opacity: 0; transform: scale(1.6) rotate(-6deg); } }
 }

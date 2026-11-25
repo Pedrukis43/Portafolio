@@ -74,12 +74,43 @@ function changeQuantity(id, delta) {
   return quantity;
 }
 
+const motion = matchMedia('(prefers-reduced-motion: no-preference)');
+
 for (const filter of filters) {
   filter.addEventListener('click', () => {
-    for (const control of filters) control.setAttribute('aria-pressed', String(control === filter));
-    for (const { element } of products.values()) {
-      element.hidden = filter.dataset.filter !== 'all' && filter.dataset.filter !== element.dataset.category;
-    }
+    const apply = () => {
+      for (const control of filters) control.setAttribute('aria-pressed', String(control === filter));
+      for (const { element } of products.values()) {
+        element.hidden = filter.dataset.filter !== 'all' && filter.dataset.filter !== element.dataset.category;
+      }
+    };
+    // Los productos se reacomodan animados donde el navegador lo permite.
+    if (motion.matches && document.startViewTransition) document.startViewTransition(apply);
+    else apply();
+  });
+}
+for (const { element } of products.values()) element.style.viewTransitionName = `product-${element.dataset.id}`;
+
+// La foto del producto vuela hasta el carrito y el contador da un salto.
+function flyToCart(product) {
+  if (!motion.matches) return;
+  const image = product.querySelector('img');
+  const from = image.getBoundingClientRect();
+  const to = document.querySelector('#open-cart').getBoundingClientRect();
+  const ghost = image.cloneNode();
+  ghost.alt = '';
+  ghost.className = 'fly';
+  Object.assign(ghost.style, { left: `${from.left}px`, top: `${from.top}px`, width: `${from.width}px`, height: `${from.height}px` });
+  document.body.append(ghost);
+  const dx = to.left + to.width / 2 - (from.left + from.width / 2);
+  const dy = to.top + to.height / 2 - (from.top + from.height / 2);
+  ghost.animate([
+    { transform: 'translate(0, 0) scale(1)', opacity: 1, borderRadius: '16px' },
+    { transform: `translate(${dx * 0.55}px, ${dy * 0.55 - 80}px) scale(.45)`, opacity: 1, offset: 0.55 },
+    { transform: `translate(${dx}px, ${dy}px) scale(.06)`, opacity: 0.3, borderRadius: '50%' },
+  ], { duration: 750, easing: 'cubic-bezier(.5, 0, .3, 1)' }).finished.then(() => {
+    ghost.remove();
+    count.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.5)' }, { transform: 'scale(1)' }], { duration: 380, easing: 'ease-out' });
   });
 }
 
@@ -87,6 +118,7 @@ for (const button of document.querySelectorAll('[data-add]')) {
   button.addEventListener('click', () => {
     const id = button.dataset.add;
     const quantity = changeQuantity(id, 1);
+    flyToCart(button.closest('.product'));
     shopStatus.textContent = '';
     cartAnnouncement.textContent = `${products.get(id).name}: ${quantity} ${quantity === 1 ? 'unidad' : 'unidades'} en el carrito.`;
   });

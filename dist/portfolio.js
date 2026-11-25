@@ -20,9 +20,16 @@ function filterProjects(selected) {
   workCount.textContent = count === 1 ? '1 sitio' : `${count} sitios`;
 }
 
+const motion = window.matchMedia('(prefers-reduced-motion: no-preference)');
+
 for (const filter of filters) {
-  filter.addEventListener('click', () => filterProjects(filter));
+  filter.addEventListener('click', () => {
+    // Las tarjetas se reacomodan animadas donde el navegador lo permite.
+    if (motion.matches && document.startViewTransition) document.startViewTransition(() => filterProjects(filter));
+    else filterProjects(filter);
+  });
 }
+projects.forEach((project, i) => { project.style.viewTransitionName = `project-${i}`; });
 filterProjects(filters[0]);
 toolbar.hidden = false;
 
@@ -95,3 +102,48 @@ function syncHeroMotion() {
 
 heroMotion.addEventListener('change', syncHeroMotion);
 syncHeroMotion();
+
+// —— Tarjetas: entrada escalonada al bajar ——
+if (motion.matches && 'IntersectionObserver' in window) {
+  document.documentElement.classList.add('js-motion');
+  const reveal = new IntersectionObserver((entries) => {
+    const entering = entries.filter((entry) => entry.isIntersecting).map((entry) => entry.target);
+    entering.forEach((project, i) => {
+      project.style.setProperty('--delay', `${i * 90}ms`);
+      project.classList.add('is-in');
+      reveal.unobserve(project);
+    });
+  }, { rootMargin: '0px 0px -8% 0px' });
+  projects.forEach((project) => reveal.observe(project));
+}
+
+// —— Vista previa en vivo: con puntero fino, la demo se carga dentro de la portada de su tarjeta ——
+const canPreview = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 901px)');
+for (const project of projects) {
+  const link = project.querySelector('.project-action[href^="demos/"]');
+  const cover = project.querySelector('.project-cover');
+  if (!link || !cover) continue;
+  let timer = 0;
+  let frame = null;
+
+  project.addEventListener('mouseenter', () => {
+    if (!canPreview.matches || !motion.matches) return;
+    // Espera breve: solo carga si el puntero se queda sobre la tarjeta.
+    timer = setTimeout(() => {
+      frame = document.createElement('iframe');
+      frame.className = 'project-preview';
+      frame.src = link.getAttribute('href');
+      frame.tabIndex = -1;
+      frame.setAttribute('aria-hidden', 'true');
+      frame.setAttribute('loading', 'eager');
+      frame.style.scale = String(cover.clientWidth / 1280);
+      frame.addEventListener('load', () => frame?.classList.add('is-ready'), { once: true });
+      cover.append(frame);
+    }, 450);
+  });
+  project.addEventListener('mouseleave', () => {
+    clearTimeout(timer);
+    frame?.remove();
+    frame = null;
+  });
+}

@@ -1,0 +1,32 @@
+/* Movimiento común de las demos. Se carga antes del CSS de cada demo: con :where() no pesa nada en la cascada,
+   así cada demo puede sobrescribirlo. Solo actúa con .mv (movimiento permitido, lo pone movimiento.js). */
+
+/* —— Entrada de la portada —— */
+@keyframes mv-subir { from { opacity: 0; translate: 0 26px; filter: blur(6px); } }
+@keyframes mv-acercar { from { opacity: 0; scale: 1.08; } }
+@keyframes mv-aparecer { from { opacity: 0; translate: 0 14px; } }
+@keyframes mv-pop { from { opacity: 0; scale: .94; translate: 0 10px; } }
+@keyframes mv-destello { 0% { opacity: .2; translate: 0 6px; } 100% { opacity: 1; translate: 0 0; } }
+@keyframes mv-latido { 0%, 100% { scale: 1; } 40% { scale: 1.06; } }
+
+.mv [data-mv-entrada] { animation: mv-subir .9s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--mv-i, 0) * 110ms + 80ms); }
+.mv [data-mv-portada] { overflow-x: clip; }
+.mv [data-mv-foto] { animation: mv-acercar 1.4s cubic-bezier(.2, .7, .2, 1) both; }
+
+/* —— Aparición al bajar —— */
+.mv [data-mv]:not(.mv-in) { opacity: 0; translate: 0 34px; }
+.mv [data-mv] { transition: opacity .8s cubic-bezier(.2, .7, .2, 1), translate .8s cubic-bezier(.2, .7, .2, 1); }
+.mv .mv-in [data-mv-i] { animation: mv-aparecer .6s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--mv-i) * 70ms + 150ms); }
+
+/* —— Contenido nuevo (filtros, listas que cambian) y mensajes —— */
+.mv .mv-pop { animation: mv-pop .45s cubic-bezier(.2, .7, .2, 1) both; animation-delay: calc(var(--mv-i, 0) * 40ms); }
+.mv .mv-destello { animation: mv-destello .45s ease-out; }
+.mv output.mv-destello, .mv .mv-latido { display: inline-block; animation: mv-latido .45s ease-out; }
+
+/* —— Respuesta al puntero —— */
+:where(.mv) :where(a, button, [role="button"], label, summary) { transition: translate .2s ease, scale .15s ease, box-shadow .2s ease, background-color .2s ease, color .2s ease, border-color .2s ease; }
+:where(.mv) :where(button, [role="button"]):where(:not(:disabled)):active { scale: .96; }
+@media (hover: hover) {
+  :where(.mv) :where(main) :where(article, li):where(:has(img)) { transition: translate .3s ease, box-shadow .3s ease; }
+  :where(.mv) :where(main) :where(article, li):where(:has(img)):hover { translate: 0 -4px; }
+}
