@@ -1,0 +1,185 @@
+{
+  "model": "/models/atelier-scroll.glb",
+  "environment": "/media/recorrido/atelier-estudio.exr",
+  "mobilePoster": "/media/recorrido/00-portada-movil.webp",
+  "clip": "Atelier_Scroll",
+  "duration": 6,
+  "fpsSource": 24,
+  "camera": "Camara_Scroll",
+  "cameraTarget": "Objetivo_Camara",
+  "cameraVerticalFovDeg": 28.6454,
+  "coordinates": "meters; glTF/Three.js Y up, printer front +Z",
+  "nodes": [
+    "AMS_2_Pro",
+    "Base_Escena",
+    "Cabezal",
+    "Camara_Scroll",
+    "Carrete_Grafito",
+    "Carrete_Gris",
+    "Carrete_Marfil",
+    "Carrete_Marino",
+    "Chasis",
+    "Cristal",
+    "Gantry_Y",
+    "Impresion_Base",
+    "Impresion_Relieve",
+    "Llavero_AM",
+    "Llavero_Cuerpo",
+    "Llavero_Iniciales",
+    "Nozzle_Tip",
+    "Objetivo_Camara",
+    "P2S_Combo",
+    "Placa_PEI",
+    "Placa_Z",
+    "Print_Surface",
+    "Puerta"
+  ],
+  "animatedTracks": {
+    "Camara_Scroll": [
+      "translation",
+      "rotation"
+    ],
+    "Objetivo_Camara": [
+      "translation"
+    ],
+    "Gantry_Y": [
+      "translation"
+    ],
+    "Cabezal": [
+      "translation"
+    ],
+    "Placa_Z": [
+      "translation"
+    ],
+    "Impresion_Base": [
+      "scale"
+    ],
+    "Llavero_Cuerpo": [
+      "translation"
+    ],
+    "Impresion_Relieve": [
+      "scale"
+    ],
+    "Llavero_Iniciales": [
+      "translation"
+    ]
+  },
+  "meshesByNode": {
+    "Base_Escena": "Cube",
+    "Llavero_Cuerpo": "Llavero_Cuerpo",
+    "Llavero_Iniciales": "Llavero_Iniciales",
+    "Placa_PEI": "Placa_PEI",
+    "Cristal": "Cristal"
+  },
+  "extensionsRequired": [
+    "EXT_meshopt_compression"
+  ],
+  "extensionsUsed": [
+    "EXT_meshopt_compression",
+    "KHR_materials_emissive_strength"
+  ],
+  "stages": [
+    {
+      "id": "portada",
+      "frame": 1,
+      "time": 0.0,
+      "progress": 0.0,
+      "cameraPosition": [
+        0.85,
+        0.87,
+        1.47
+      ],
+      "cameraTarget": [
+        0.0,
+        0.343,
+        0.008
+      ],
+      "poster": "/media/recorrido/00-portada.webp"
+    },
+    {
+      "id": "filamento",
+      "frame": 30,
+      "time": 1.208333,
+      "progress": 0.201389,
+      "cameraPosition": [
+        0.41,
+        0.91,
+        0.78
+      ],
+      "cameraTarget": [
+        0.0,
+        0.61,
+        0.045
+      ],
+      "poster": "/media/recorrido/01-filamento.webp"
+    },
+    {
+      "id": "boquilla",
+      "frame": 56,
+      "time": 2.291667,
+      "progress": 0.381944,
+      "cameraPosition": [
+        0.07,
+        0.452,
+        0.54
+      ],
+      "cameraTarget": [
+        0.0,
+        0.355,
+        0.055
+      ],
+      "poster": "/media/recorrido/02-boquilla.webp"
+    },
+    {
+      "id": "impresion",
+      "frame": 90,
+      "time": 3.708333,
+      "progress": 0.618056,
+      "cameraPosition": [
+        -0.122,
+        0.386,
+        0.229
+      ],
+      "cameraTarget": [
+        0.001,
+        0.353,
+        0.056
+      ],
+      "poster": "/media/recorrido/03-capa-a-capa.webp"
+    },
+    {
+      "id": "pieza",
+      "frame": 122,
+      "time": 5.041667,
+      "progress": 0.840278,
+      "cameraPosition": [
+        -0.062,
+        0.407,
+        0.154
+      ],
+      "cameraTarget": [
+        0.0,
+        0.33,
+        0.056
+      ],
+      "poster": "/media/recorrido/04-pieza-en-placa.webp"
+    },
+    {
+      "id": "resultado",
+      "frame": 145,
+      "time": 6.0,
+      "progress": 1.0,
+      "cameraPosition": [
+        -0.046,
+        0.4075,
+        0.1415
+      ],
+      "cameraTarget": [
+        0.0,
+        0.329,
+        0.056
+      ],
+      "poster": "/media/recorrido/05-resultado.webp"
+    }
+  ]
+}

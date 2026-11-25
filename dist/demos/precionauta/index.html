@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Demo estática de Precionauta con productos y precios ficticios: busca, filtra y consulta el historial de precios.">
+    <meta name="theme-color" content="#ffe638">
+    <title>Precionauta · Demo con datos ficticios</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="stylesheet" href="styles.css">
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <a class="skip" href="#catalogo">Saltar al catálogo</a>
+    <div class="demo-bar">
+      <div class="container">
+        <a href="../../index.html">← Volver al portafolio</a>
+        <span>Demo estática · Productos, tiendas y precios ficticios</span>
+      </div>
+    </div>
+
+    <header class="site-header">
+      <div class="container nav-bar">
+        <a class="brand" href="#inicio" aria-label="Precionauta, ir al inicio">
+          <span class="brand__mark" aria-hidden="true">P</span>
+          <span class="brand__name">Precionauta</span>
+        </a>
+        <form class="search-field" role="search" id="search-form">
+          <svg width="18" height="18" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M229.66,218.34l-50.07-50.06a88.11,88.11,0,1,0-11.31,11.31l50.06,50.07a8,8,0,0,0,11.32-11.32ZM40,112a72,72,0,1,1,72,72A72.08,72.08,0,0,1,40,112Z"/></svg>
+          <label class="visually-hidden" for="search">Buscar ofertas</label>
+          <input id="search" type="search" placeholder="Buscar productos, tiendas o categorías…" autocomplete="off">
+          <button type="submit">Buscar</button>
+        </form>
+        <a class="nav-link nav-link--plus" href="#catalogo">Ofertas</a>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero container" aria-labelledby="hero-title">
+        <p class="eyebrow">Tu próxima gran compra empieza aquí</p>
+        <h1 id="hero-title">Ve las ofertas <mark>en cuanto</mark> <mark>aparecen.</mark></h1>
+        <p>Compara precios y revisa su historial antes de comprar. Precionauta descuenta los precios inflados: el ahorro real se mide contra el promedio de los últimos 90 días.</p>
+        <p class="notice">Modo demostración: estos productos y precios son ficticios y no se conecta a ningún servidor.</p>
+      </section>
+
+      <section class="catalog container" id="catalogo" aria-labelledby="catalog-title">
+        <div class="catalog__head">
+          <div>
+            <p class="eyebrow eyebrow--plain">01 / Ofertas verificadas</p>
+            <h2 id="catalog-title">Catálogo</h2>
+          </div>
+          <p class="catalog__count" id="count" role="status" aria-live="polite"></p>
+        </div>
+
+        <div class="filters">
+          <div class="chips" role="group" aria-label="Categorías" id="categories"></div>
+          <div class="selects">
+            <label>Tienda
+              <select id="store"><option value="">Todas</option></select>
+            </label>
+            <label>Ahorro real mínimo
+              <select id="saving">
+                <option value="0">Cualquiera</option>
+                <option value="10">10 % o más</option>
+                <option value="20">20 % o más</option>
+                <option value="30">30 % o más</option>
+              </select>
+            </label>
+            <label>Ordenar
+              <select id="sort">
+                <option value="saving">Mayor ahorro real</option>
+                <option value="price-asc">Menor precio</option>
+                <option value="price-desc">Mayor precio</option>
+              </select>
+            </label>
+            <label class="check"><input type="checkbox" id="lowest"> Solo en su mínimo de 90 días</label>
+          </div>
+        </div>
+
+        <ul class="grid" id="grid"></ul>
+        <div class="empty" id="empty" hidden>
+          <p><strong>Sin ofertas con esos filtros.</strong> Prueba otra búsqueda o limpia los filtros.</p>
+          <button type="button" class="btn btn--outline" id="reset">Limpiar filtros</button>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="history" id="history" aria-labelledby="history-title">
+      <div class="history__head">
+        <div>
+          <p class="eyebrow eyebrow--plain" id="history-store"></p>
+          <h2 id="history-title"></h2>
+        </div>
+        <button type="button" class="icon-button" id="history-close" aria-label="Cerrar historial">
+          <svg width="16" height="16" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M205.66,194.34a8,8,0,0,1-11.32,11.32L128,139.31,61.66,205.66a8,8,0,0,1-11.32-11.32L116.69,128,50.34,61.66A8,8,0,0,1,61.66,50.34L128,116.69l66.34-66.35a8,8,0,0,1,11.32,11.32L139.31,128Z"/></svg>
+        </button>
+      </div>
+      <p class="verdict" id="history-verdict"></p>
+      <div class="ranges" role="group" aria-label="Periodo del historial">
+        <button type="button" data-days="30" aria-pressed="false">30 días</button>
+        <button type="button" data-days="90" aria-pressed="true">90 días</button>
+      </div>
+      <figure class="chart">
+        <svg id="chart" viewBox="0 0 640 260" role="img" aria-labelledby="chart-caption"></svg>
+        <figcaption id="chart-caption"></figcaption>
+      </figure>
+      <dl class="stats" id="history-stats"></dl>
+      <details>
+        <summary>Ver los precios por semana</summary>
+        <table>
+          <thead><tr><th scope="col">Semana</th><th scope="col">Precio</th></tr></thead>
+          <tbody id="history-table"></tbody>
+        </table>
+      </details>
+    </dialog>
+
+    <footer class="site-footer">
+      <div class="container">
+        <p><strong>Precionauta</strong> · Proyecto académico en equipo · Universidad Modelo</p>
+        <p>Demo para el portafolio de Pedro Narváez. <a href="../../index.html#precionauta">Volver a la ficha</a></p>
+      </div>
+    </footer>
+  </body>
+</html>

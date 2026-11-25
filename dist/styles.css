@@ -152,6 +152,9 @@ html:has(.case-dialog[open]) { overflow: hidden; }
 .close-case:hover { background: #dddfd8; }
 .button-dark { background: var(--navy); color: white; }
 .button-dark:hover { background: #303954; }
+.case-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+.button-outline { border-color: var(--navy); color: var(--navy); }
+.button-outline:hover { background: #eceaf6; }
 
 .site-footer { background: var(--navy); color: #f9f9ff; }
 .footer-inner { display: flex; align-items: center; justify-content: space-between; gap: 1.25rem 2rem; min-height: 200px; padding-block: 2.5rem; }

@@ -1,0 +1,231 @@
+---
+// Cotizador de la demo: los campos del formulario original más tamaño y material.
+// El envío es simulado: no sale ninguna solicitud de la página y no se guarda nada.
+import { ARCHIVOS, MATERIALES, TAMANOS } from "../scripts/estimacion"
+---
+
+<form class="cotizacion" data-cotizador novalidate>
+  <div class="cotizacion__fila">
+    <label>
+      <span>Nombre</span>
+      <input name="nombre" autocomplete="off" required />
+    </label>
+    <label>
+      <span>¿Cómo te contactamos?</span>
+      <input name="contacto" placeholder="Teléfono, correo o Instagram" autocomplete="off" required />
+    </label>
+  </div>
+  <label>
+    <span>¿Qué imaginas?</span>
+    <textarea name="descripcion" rows="3" placeholder="Qué pieza es y qué uso tendrá" required></textarea>
+  </label>
+  <div class="cotizacion__fila">
+    <label>
+      <span>Tamaño aproximado</span>
+      <select name="tamano">
+        {Object.entries(TAMANOS).map(([valor, t]) => <option value={valor}>{t.nombre}</option>)}
+      </select>
+    </label>
+    <label>
+      <span>Cantidad</span>
+      <input name="cantidad" type="number" min="1" max="500" step="1" value="1" inputmode="numeric" required />
+    </label>
+  </div>
+  <div class="cotizacion__fila">
+    <label>
+      <span>Material</span>
+      <select name="material">
+        {Object.entries(MATERIALES).map(([valor, m]) => <option value={valor}>{m.nombre}</option>)}
+      </select>
+    </label>
+    <label>
+      <span>¿Tienes archivo 3D?</span>
+      <select name="archivo">
+        {Object.entries(ARCHIVOS).map(([valor, a]) => <option value={valor} selected={valor === "nose"}>{a.nombre}</option>)}
+      </select>
+    </label>
+  </div>
+
+  <button class="boton" type="submit">Solicitar cotización</button>
+  <p class="cotizacion__estado" data-estado role="status" aria-live="polite"></p>
+  <p class="cotizacion__nota">Demo: la solicitud se simula en tu navegador. No se envía ni se guarda ningún dato.</p>
+</form>
+
+<section class="resultado" data-resultado hidden tabindex="-1" aria-labelledby="resultado-titulo">
+  <p class="resultado__folio" data-folio></p>
+  <h3 id="resultado-titulo">Recibimos tu idea</h3>
+  <p data-saludo></p>
+  <dl>
+    <div><dt>Estimación</dt><dd data-rango></dd></div>
+    <div><dt>Tiempo de fabricación</dt><dd data-dias></dd></div>
+    <div><dt>Pieza</dt><dd data-pieza></dd></div>
+  </dl>
+  <p class="cotizacion__nota">Cifras ficticias calculadas en la demo. En el sitio real, ATELIER revisa cada proyecto antes de cotizar.</p>
+  <button class="boton boton--compacto" type="button" data-otra>Cotizar otra idea</button>
+</section>
+
+<script>
+  import { ARCHIVOS, MATERIALES, TAMANOS, estimar, type Pedido } from "../scripts/estimacion"
+
+  const formulario = document.querySelector<HTMLFormElement>("[data-cotizador]")!
+  const estado = formulario.querySelector<HTMLElement>("[data-estado]")!
+  const enviar = formulario.querySelector<HTMLButtonElement>("[type=submit]")!
+  const resultado = document.querySelector<HTMLElement>("[data-resultado]")!
+  const pesos = new Intl.NumberFormat("es-MX", { style: "currency", currency: "MXN", maximumFractionDigits: 0 })
+  const campo = (nombre: string) => resultado.querySelector<HTMLElement>(`[data-${nombre}]`)!
+
+  formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault()
+    if (!formulario.reportValidity()) return
+    const datos = new FormData(formulario)
+    const pedido = {
+      tamano: datos.get("tamano"),
+      material: datos.get("material"),
+      archivo: datos.get("archivo"),
+      cantidad: Number(datos.get("cantidad")),
+    } as Pedido
+    enviar.disabled = true
+    estado.textContent = "Enviando tu solicitud…"
+    // Espera breve para que se note el paso de «enviar»; no hay red de por medio.
+    setTimeout(() => {
+      const { minimo, maximo, dias } = estimar(pedido)
+      campo("folio").textContent = `Folio de demostración AT-${String(Date.now()).slice(-5)}`
+      campo("saludo").textContent = `Gracias, ${String(datos.get("nombre")).trim()}. Así quedaría tu cotización:`
+      campo("rango").textContent = `${pesos.format(minimo)} a ${pesos.format(maximo)}`
+      campo("dias").textContent = `${dias} días hábiles`
+      campo("pieza").textContent = `${pedido.cantidad} × ${TAMANOS[pedido.tamano].nombre.toLowerCase()}, ${MATERIALES[pedido.material].nombre} · ${ARCHIVOS[pedido.archivo].nombre}`
+      estado.textContent = ""
+      enviar.disabled = false
+      formulario.hidden = true
+      resultado.hidden = false
+      resultado.focus()
+    }, 900)
+  })
+
+  resultado.querySelector("[data-otra]")!.addEventListener("click", () => {
+    formulario.reset()
+    resultado.hidden = true
+    formulario.hidden = false
+    formulario.querySelector<HTMLInputElement>("[name=nombre]")!.focus()
+  })
+</script>
+
+<style>
+  .cotizacion {
+    display: grid;
+    gap: 1rem;
+  }
+  .cotizacion[hidden],
+  .resultado[hidden] {
+    display: none;
+  }
+  .cotizacion__fila {
+    display: grid;
+    gap: 1rem;
+  }
+  label {
+    display: grid;
+    gap: 0.35rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+  }
+  input,
+  textarea,
+  select {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid rgb(184 212 242 / 0.35);
+    border-radius: 0;
+    background: #142649;
+    color: #fff;
+    font: inherit;
+    font-weight: 400;
+    color-scheme: dark;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: rgb(255 255 255 / 0.6);
+  }
+  input:hover,
+  textarea:hover,
+  select:hover {
+    border-color: rgb(184 212 242 / 0.7);
+  }
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--azul-suave);
+    outline-offset: 0;
+    border-color: transparent;
+  }
+  .cotizacion .boton {
+    justify-self: start;
+    margin-top: 0.5rem;
+    border: 0;
+    cursor: pointer;
+  }
+  .boton:disabled {
+    opacity: 0.7;
+    cursor: progress;
+  }
+  .cotizacion__estado:empty {
+    display: none;
+  }
+  .cotizacion__estado {
+    font-weight: 600;
+    color: var(--azul-suave);
+  }
+  .cotizacion__nota {
+    font-size: 0.875rem;
+    color: rgb(255 255 255 / 0.72);
+  }
+  .resultado {
+    display: grid;
+    gap: 1rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid rgb(184 212 242 / 0.35);
+    background: #142649;
+  }
+  .resultado:focus {
+    outline: none;
+  }
+  .resultado,
+  .cotizacion {
+    scroll-margin-top: calc(var(--cabecera) + 1.5rem); /* el foco no queda bajo la cabecera fija */
+  }
+  .resultado__folio {
+    font-size: 0.875rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--azul-suave);
+  }
+  .resultado h3 {
+    font-family: var(--titulos);
+    font-size: 1.75rem;
+  }
+  .resultado dl {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0;
+  }
+  .resultado dt {
+    font-size: 0.875rem;
+    color: rgb(255 255 255 / 0.72);
+  }
+  .resultado dd {
+    margin: 0;
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+  .resultado .boton {
+    justify-self: start;
+    border: 0;
+    cursor: pointer;
+  }
+  @media (min-width: 600px) {
+    .cotizacion__fila {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

@@ -1,0 +1,363 @@
+---
+// Demo de ATELIER para el portafolio: taller 3D girable con las etapas del recorrido y cotizador simulado.
+import "@fontsource-variable/montserrat"
+import "@fontsource-variable/inter"
+import "@fontsource/poppins/latin-500.css"
+import "../styles/global.css"
+import CotizadorDemo from "../components/CotizadorDemo.astro"
+import { ESLOGAN } from "../config"
+import { escena, pose, url } from "../scripts/escena"
+
+// Textos de las etapas del recorrido original (Recorrido.astro), una por pose de scroll-scene.json.
+const etapas = [
+  { id: "portada", paso: "Impresora", titulo: "La impresora.", texto: "Bambu Lab P2S con el módulo AMS y cuatro carretes. Arrástrala para verla desde cualquier lado." },
+  { id: "filamento", paso: "Filamento", titulo: "Filamento.", texto: "Dos carretes, marino y marfil: los colores que tendrá el llavero." },
+  { id: "boquilla", paso: "Boquilla", titulo: "La boquilla.", texto: "El cabezal baja hasta la placa y calienta el filamento." },
+  { id: "impresion", paso: "Capa a capa", titulo: "Capa a capa.", texto: "La boquilla deposita el filamento sobre la placa y la pieza empieza a tomar forma." },
+  { id: "pieza", paso: "Pieza", titulo: "La pieza.", texto: "Las iniciales en marfil se levantan sobre la base marino." },
+  { id: "resultado", paso: "Resultado", titulo: "Resultado.", texto: "El llavero AM, terminado sobre la placa." },
+].map((etapa) => ({ ...etapa, progreso: pose(etapa.id).progress }))
+---
+
+<!doctype html>
+<html lang="es-MX">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ATELIER | 3D Studio · Demo interactiva</title>
+    <meta name="description" content="Demo de ATELIER: gira la impresora 3D, recorre las etapas de impresión y prueba el cotizador simulado." />
+    <meta name="theme-color" content="#081B42" />
+    <link rel="icon" type="image/svg+xml" href={url("/favicon.svg")} />
+    <script is:inline>
+      document.documentElement.classList.add("js")
+    </script>
+  </head>
+  <body>
+    <a class="salto" href="#taller">Saltar al taller 3D</a>
+    <div class="demo-barra">
+      <a href="../../index.html">← Volver al portafolio</a>
+      <span>Demo interactiva · Cotización simulada</span>
+    </div>
+
+    <header class="cabecera">
+      <div class="cabecera__interior">
+        <a class="marca" href="#taller" aria-label="ATELIER, inicio">
+          <img src={url("/media/marca/simbolo-atelier.webp")} width="256" height="256" alt="" />
+          ATELIER
+          <svg class="marca__tinta" width="0" height="0" aria-hidden="true">
+            <filter id="tinta" color-interpolation-filters="sRGB">
+              <feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -0.2126 -0.7152 -0.0722 1 0" result="trazo"></feColorMatrix>
+              <feFlood flood-color="currentColor"></feFlood>
+              <feComposite in2="trazo" operator="in"></feComposite>
+            </filter>
+          </svg>
+        </a>
+        <button class="menu-boton" type="button" aria-expanded="false" aria-controls="menu" aria-label="Menú">
+          <svg viewBox="0 0 28 28" width="28" height="28" aria-hidden="true"><path d="M3 10h22M3 18h22" /></svg>
+        </button>
+        <nav class="nav" id="menu" aria-label="Principal">
+          <a href="#taller">Taller 3D</a>
+          <a href="../../index.html">Portafolio</a>
+          <a class="boton boton--compacto" href="#contacto">Cotiza tu idea</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="taller" id="taller" aria-labelledby="taller-titulo">
+        <div class="taller__texto">
+          <h1 class="titular" id="taller-titulo">{ESLOGAN.map((linea) => <span>{linea} </span>)}</h1>
+          <p class="taller__bajada">Gira la impresora y recorre cómo el filamento se convierte en una pieza.</p>
+          <div class="taller__etapa" aria-live="polite">
+            <h2 data-etapa-titulo>{etapas[0].titulo}</h2>
+            <p data-etapa-texto>{etapas[0].texto}</p>
+          </div>
+        </div>
+
+        <div class="visor" data-visor>
+          <img
+            class="visor__poster"
+            src={url(pose("portada").poster)}
+            width="1120"
+            height="768"
+            alt="Impresora 3D Bambu Lab P2S con el módulo AMS y cuatro carretes de filamento sobre un plinto azul marino."
+            fetchpriority="high"
+          />
+          <canvas class="visor__lienzo" tabindex="0" role="img" aria-label="Impresora 3D girable. Arrastra o usa las flechas para girarla; rueda o pellizco para acercarte."></canvas>
+          <p class="visor__aviso" data-aviso>Cargando modelo 3D…</p>
+          <p class="visor__ayuda">Arrastra para girar · Rueda o pellizco para acercar</p>
+        </div>
+
+        <div class="controles">
+          <ol class="etapas" aria-label="Etapas de impresión">
+            {etapas.map((etapa, i) => (
+              <li>
+                <button type="button" data-etapa={etapa.id} data-progreso={etapa.progreso} data-titulo={etapa.titulo} data-texto={etapa.texto} data-poster={url(pose(etapa.id).poster)} aria-pressed={i === 0 ? "true" : "false"}>
+                  <span>{String(i + 1).padStart(2, "0")}</span>{etapa.paso}
+                </button>
+              </li>
+            ))}
+          </ol>
+          <label class="avance">
+            <span>Avance de la impresión <output data-porcentaje>0 %</output></span>
+            <input type="range" min="0" max="1000" value="0" data-avance disabled />
+          </label>
+        </div>
+      </section>
+
+      <section class="seccion contacto" id="contacto" aria-labelledby="contacto-titulo">
+        <div>
+          <h2 class="titular" id="contacto-titulo">Cotiza tu idea</h2>
+          <p class="contacto__texto">Cuéntanos qué imaginas y te mostramos una estimación de precio y tiempo.</p>
+          <p class="contacto__pendiente">En esta demo el envío es simulado y las cifras son ficticias.</p>
+        </div>
+        <div><CotizadorDemo /></div>
+      </section>
+    </main>
+
+    <footer class="pie">
+      <p><strong>ATELIER | 3D Studio</strong> · Diseño e impresión 3D por encargo · México</p>
+      <p>La impresora y las piezas mostradas son modelos y simulaciones 3D.</p>
+      <p><a href="../../index.html">Volver al portafolio</a></p>
+    </footer>
+
+    <script>
+      // Menú compacto en móvil, como en el sitio original.
+      const boton = document.querySelector<HTMLButtonElement>(".menu-boton")!
+      boton.addEventListener("click", () => boton.setAttribute("aria-expanded", String(boton.getAttribute("aria-expanded") !== "true")))
+      document.querySelector(".nav")!.addEventListener("click", () => boton.setAttribute("aria-expanded", "false"))
+
+      const visor = document.querySelector<HTMLElement>("[data-visor]")!
+      const poster = visor.querySelector<HTMLImageElement>(".visor__poster")!
+      const aviso = visor.querySelector<HTMLElement>("[data-aviso]")!
+      const botones = [...document.querySelectorAll<HTMLButtonElement>("[data-etapa]")]
+      const rango = document.querySelector<HTMLInputElement>("[data-avance]")!
+      const porcentaje = document.querySelector<HTMLOutputElement>("[data-porcentaje]")!
+      const titulo = document.querySelector<HTMLElement>("[data-etapa-titulo]")!
+      const texto = document.querySelector<HTMLElement>("[data-etapa-texto]")!
+      let taller: import("../scripts/taller").Taller | undefined
+
+      function marcar(boton: HTMLButtonElement) {
+        botones.forEach((b) => b.setAttribute("aria-pressed", String(b === boton)))
+        titulo.textContent = boton.dataset.titulo!
+        texto.textContent = boton.dataset.texto!
+      }
+      function mostrarAvance(p: number) {
+        rango.value = String(Math.round(p * 1000))
+        porcentaje.textContent = `${Math.round(p * 100)} %`
+      }
+
+      for (const boton of botones) {
+        boton.addEventListener("click", () => {
+          marcar(boton)
+          mostrarAvance(Number(boton.dataset.progreso))
+          if (taller) taller.irA(boton.dataset.etapa!)
+          else poster.src = boton.dataset.poster! // sin 3D quedan los encuadres fijos del original
+        })
+      }
+
+      // El deslizador mueve solo la máquina; la etapa resaltada es la última alcanzada.
+      rango.addEventListener("input", () => {
+        const p = Number(rango.value) / 1000
+        porcentaje.textContent = `${Math.round(p * 100)} %`
+        taller?.avance(p)
+        const alcanzada = botones.filter((b) => Number(b.dataset.progreso) <= p + 1e-6).at(-1)
+        if (alcanzada) marcar(alcanzada)
+      })
+
+      try {
+        const { montarTaller } = await import("../scripts/taller")
+        taller = await montarTaller(visor, (f) => (aviso.textContent = `Cargando modelo 3D… ${Math.round(f * 100)} %`))
+        rango.disabled = false
+        aviso.hidden = true
+      } catch (error) {
+        console.warn("Visor 3D no disponible; se muestran los encuadres fijos.", error)
+        aviso.textContent = "Tu navegador no puede mostrar el modelo 3D. Mostramos las etapas en imágenes."
+        visor.classList.add("sin-3d")
+      }
+    </script>
+
+    <style>
+      .demo-barra {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 0.25rem 1rem;
+        padding: 0.55rem var(--margen);
+        background: var(--marino-hondo);
+        color: var(--azul-suave);
+        font-size: 0.875rem;
+      }
+      .demo-barra a {
+        color: #fff;
+        font-weight: 600;
+      }
+      /* En la demo la cabecera acompaña sin tapar la barra de regreso. */
+      .cabecera {
+        position: sticky;
+        top: 0;
+      }
+      .taller {
+        display: grid;
+        gap: 1.5rem;
+        padding: 2rem var(--margen) 3rem;
+        background: radial-gradient(100% 90% at 74% 52%, #102443 0%, #08162e 48%, #050e20 100%);
+      }
+      .taller .titular {
+        font-size: clamp(2.25rem, 5vw, 4.25rem);
+      }
+      .taller .titular span {
+        display: block;
+      }
+      .taller__bajada {
+        margin-top: 0.75rem;
+        color: rgb(255 255 255 / 0.85);
+        font-size: 1.125rem;
+      }
+      .taller__etapa {
+        margin-top: 1.5rem;
+        padding-left: 1rem;
+        border-left: 2px solid var(--azul-suave);
+      }
+      .taller__etapa h2 {
+        font-family: var(--titulos);
+        font-size: 1.5rem;
+      }
+      .taller__etapa p {
+        color: rgb(255 255 255 / 0.82);
+      }
+      .visor {
+        position: relative;
+        aspect-ratio: 4 / 5;
+        max-height: 78svh;
+        width: 100%;
+        overflow: hidden;
+        border: 1px solid rgb(184 212 242 / 0.2);
+        background: #050e20;
+      }
+      .visor__poster,
+      .visor__lienzo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .visor__lienzo {
+        opacity: 0;
+        transition: opacity 0.6s;
+        touch-action: none;
+        cursor: grab;
+      }
+      .visor__lienzo:active {
+        cursor: grabbing;
+      }
+      .visor.es-3d .visor__lienzo {
+        opacity: 1;
+      }
+      .visor.es-3d .visor__poster {
+        visibility: hidden;
+      }
+      .visor.sin-3d .visor__lienzo {
+        display: none;
+      }
+      .visor__aviso,
+      .visor__ayuda {
+        position: absolute;
+        left: 0.75rem;
+        right: 0.75rem;
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--azul-suave);
+        pointer-events: none;
+      }
+      .visor__aviso {
+        top: 0.75rem;
+      }
+      .visor__ayuda {
+        bottom: 0.6rem;
+        display: none;
+      }
+      .visor.es-3d .visor__ayuda {
+        display: block;
+      }
+      .controles {
+        display: grid;
+        gap: 1.25rem;
+      }
+      .etapas {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+        gap: 0.5rem;
+      }
+      .etapas button {
+        display: flex;
+        width: 100%;
+        min-height: 2.75rem;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 0.75rem;
+        border: 1px solid rgb(184 212 242 / 0.35);
+        background: transparent;
+        font-family: var(--botones);
+        cursor: pointer;
+        text-align: left;
+      }
+      .etapas button span {
+        color: var(--azul-suave);
+        font-size: 0.8125rem;
+      }
+      .etapas button:hover {
+        border-color: var(--azul-suave);
+      }
+      .etapas button[aria-pressed="true"] {
+        background: var(--azul);
+        border-color: var(--azul);
+      }
+      .etapas button[aria-pressed="true"] span {
+        color: #fff;
+      }
+      .avance {
+        display: grid;
+        gap: 0.4rem;
+        font-size: 0.9375rem;
+      }
+      .avance span {
+        display: flex;
+        justify-content: space-between;
+      }
+      .avance input {
+        width: 100%;
+        accent-color: var(--azul-suave);
+      }
+      .contacto {
+        min-height: auto;
+      }
+      .pie a {
+        color: #fff;
+      }
+      @media (min-width: 900px) {
+        .taller {
+          grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+          grid-template-areas: "texto visor" "controles visor";
+          align-items: start;
+          column-gap: 3rem;
+          padding-block: 3rem 4rem;
+        }
+        .taller__texto {
+          grid-area: texto;
+        }
+        .visor {
+          grid-area: visor;
+          aspect-ratio: 16 / 11;
+        }
+        .controles {
+          grid-area: controles;
+        }
+        .etapas {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </body>
+</html>
