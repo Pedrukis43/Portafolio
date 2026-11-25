@@ -1,6 +1,6 @@
 # Portafolio web de Pedro Narváez
 
-Quince piezas para explorar. Precionauta y Atelier tienen fichas con capturas de sus interfaces y un botón «Ver demo» con una vista previa interactiva. Las otras trece son demos interactivas de negocios ficticios. El filtro «Recientes» muestra el configurador 3D Veta, la boletería Foro Vivo, el hotel Casa Marea, el estudio Tinta Norte y el simulador Sol de Patio.
+Quince piezas para explorar. Precionauta y Atelier tienen fichas con capturas de sus interfaces. Las otras trece son demos interactivas de negocios ficticios. El filtro «Recientes» muestra el configurador 3D Veta, la boletería Foro Vivo, el hotel Casa Marea, el estudio Tinta Norte y el simulador Sol de Patio.
 
 ## Abrir el portafolio
 
@@ -14,7 +14,7 @@ Visita `http://127.0.0.1:4173/Portafolio/`. La demo de Atelier está en `/Portaf
 
 La demo de Atelier se compiló con Astro para esa ruta y solo funciona servida bajo `/Portafolio/`. El resto del sitio usa rutas relativas: también se puede abrir `dist/index.html` en el navegador o servir `dist/` en la raíz.
 
-Cada demo está en `dist/demos/` y aparece como una tarjeta en `dist/index.html`, salvo Atelier y Precionauta, que se abren desde su ficha. Las operaciones son simuladas. Las demos que conservan estado lo guardan en el navegador, por lo que dos dispositivos no comparten pedidos ni reservas. En una vista previa local, el botón «Abrir mesa 4» simula el acceso por QR. El código para escanear aparece en la versión de GitHub Pages.
+Cada demo está en `dist/demos/` y aparece como una tarjeta en `dist/index.html`, salvo Atelier y Precionauta, que no tienen enlace en el sitio y solo se abren con su dirección. Las operaciones son simuladas. Las demos que conservan estado lo guardan en el navegador, por lo que dos dispositivos no comparten pedidos ni reservas. En una vista previa local, el botón «Abrir mesa 4» simula el acceso por QR. El código para escanear aparece en la versión de GitHub Pages.
 
 ## Demos de Atelier y Precionauta
 
